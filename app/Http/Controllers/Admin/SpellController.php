@@ -39,7 +39,7 @@ class SpellController extends Controller
      */
     public function show(Spell $spell)
     {
-        //
+        return view('spells.show', compact('spell'));
     }
 
     /**
