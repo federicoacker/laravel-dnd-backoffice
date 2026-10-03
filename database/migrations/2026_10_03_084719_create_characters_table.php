@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,11 +12,12 @@ return new class extends Migration
     {
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255);
+            $table->string('name', 255);
             $table->tinyInteger('level')->default(1);
-            $table->foreignId('background_id')->nullable()->constrained();
-            $table->foreignId('species_id')->nullable()->constrained();
-            $table->foreignId('class_id')->nullable()->constrained();
+            $table->foreignId('background_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('species_id')->nullable()->constrained()->onDelete('set null');
+            $table->unsignedBigInteger('profession_id')->nullable();
+            $table->foreign('profession_id')->references('id')->on('professions')->onDelete('set null');
             $table->text('backstory')->nullable();
             $table->text('image')->nullable();
             $table->tinyInteger('strength')->default(10);

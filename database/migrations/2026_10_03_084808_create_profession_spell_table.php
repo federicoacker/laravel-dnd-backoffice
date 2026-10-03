@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('class_proficiency', function (Blueprint $table) {
+        Schema::create('profession_spell', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('class_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('proficiency_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('profession_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('spell_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('class_proficiency');
+        Schema::dropIfExists('profession_spell');
     }
 };
