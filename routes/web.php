@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\SpeciesController;
 use App\Http\Controllers\Admin\SpellController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +16,12 @@ Route::get('/dashboard', function () {
 
 
 Route::resource('spells', SpellController::class)
+->middleware(['auth', 'verified']);
+
+Route::resource('features', FeatureController::class)
+->middleware(['auth', 'verified']);
+
+Route::resource('species', SpeciesController::class)
 ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
