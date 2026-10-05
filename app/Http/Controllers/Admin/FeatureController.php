@@ -13,7 +13,8 @@ class FeatureController extends Controller
      */
     public function index()
     {
-        //
+        $features = Feature::all();
+        return view('features.index', compact('features'));
     }
 
     /**
@@ -21,7 +22,7 @@ class FeatureController extends Controller
      */
     public function create()
     {
-        //
+        return view('features.create');
     }
 
     /**
@@ -29,7 +30,16 @@ class FeatureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $newFeature = new Feature();
+        $newFeature->name = $data['name'];
+        $newFeature->description = $data['description'];
+        $newFeature->type = $data['type'];
+
+        $newFeature->save();
+
+        return redirect()->route('features.show', $newFeature);
     }
 
     /**
@@ -37,30 +47,40 @@ class FeatureController extends Controller
      */
     public function show(Feature $feature)
     {
-        //
+        return view('features.show', compact('feature'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Feature $feature)
     {
-        //
+        return view('features.edit', compact('feature'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Feature $feature)
     {
-        //
+        $data = $request->all();
+
+        $feature->name = $data['name'];
+        $feature->description = $data['description'];
+        $feature->type = $data['type'];
+
+        $feature->update();
+
+        return redirect()->route('features.show', $feature);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Feature $feature)
     {
-        //
+        $feature->delete();
+
+        return redirect()->route('features.index');
     }
 }
