@@ -17,7 +17,7 @@ return new class extends Migration
             $table->smallInteger('level', false, true);
             $table->string('casting_time', 255);
             $table->string('range', 255);
-            $table->string('components', 5);
+            $table->string('components', 5)->nullable();
             $table->string('duration', 255);
             $table->text('description');
             $table->timestamps();
