@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('feat_id')->nullable()->constrained()->onDelete('set null');
             $table->text('ability_scores');
             $table->text('equipment');
+            $table->text('description');
             $table->timestamps();
         });
     }
