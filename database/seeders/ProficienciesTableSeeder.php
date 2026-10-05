@@ -21,12 +21,19 @@ class ProficienciesTableSeeder extends Seeder
             "Wisdom",
             "Charisma"
         ];
+        
+        $types = [
+            'Skill',
+            'Tool',
+            'Weapon'
+        ];
 
         for($i = 0; $i<6; $i++){
             $newProficiency = new Proficiency();
             $newProficiency->name = fake()->word();
             $newProficiency->description = fake()->paragraph();
             $newProficiency->ability_score = $ability_scores[array_rand($ability_scores)];
+            $newProficiency->type = $types[array_rand($types)];
             $newProficiency->save();
         }
     }
