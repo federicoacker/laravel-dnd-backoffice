@@ -16,6 +16,7 @@ class FeaturesTableSeeder extends Seeder
         $newFeature = new Feature();
         $newFeature->name = fake()->word();
         $newFeature->description = fake()->paragraph();
+        $newFeature->type = "Species";
         $newFeature->save();
     }
 }

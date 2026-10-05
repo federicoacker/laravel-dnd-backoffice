@@ -15,10 +15,15 @@
             </div>
         </div>
         <hr>
+        @if ($selfSpecies->image)
+            <img class="card-img-top" src="{{ asset('storage/' . $selfSpecies->image) }}"
+                alt="Immagine {{ $selfSpecies->name }}">
+                <hr>
+        @endif
         <div class="card-subtitle">Feature Razziali: </div>
         <ul class="species-features">
-            @foreach ($selfSpecies->features as $feature )
-                <li class="card-subtitle"><a href={{ route('features.show',$feature) }}>{{ $feature->name }}</a></li>
+            @foreach ($selfSpecies->features as $feature)
+                <li class="card-subtitle"><a href={{ route('features.show', $feature) }}>{{ $feature->name }}</a></li>
             @endforeach
         </ul>
         <hr>
