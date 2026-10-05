@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->text('description');
             $table->string('ability_score', 20);
+            $table->string('type', 50);
             $table->timestamps();
         });
     }
