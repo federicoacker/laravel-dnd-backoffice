@@ -18,6 +18,7 @@ class BackgroundsTableSeeder extends Seeder
         $newBackground->feat_id = 1;
         $newBackground->ability_scores = "Strenght,Dexterity,Constitution";
         $newBackground->equipment = fake()->paragraph();
+        $newBackground->description = fake()->paragraph();
         $newBackground->save();
     }
 }
