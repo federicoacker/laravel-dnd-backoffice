@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('backgrounds', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->foreignId('feat_id')->nullable()->constrained();
+            $table->foreignId('feat_id')->nullable()->constrained()->onDelete('set null');
             $table->text('ability_scores');
             $table->text('equipment');
             $table->timestamps();
