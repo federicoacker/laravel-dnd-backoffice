@@ -16,8 +16,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
+                        <li class="nav-item d-md-flex g-2">
                             <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
+                            <a class="nav-link" href="{{url('/spells') }}">{{ __('Spells') }}</a>
+                            <a class="nav-link" href="{{url('/species') }}">{{ __('Species') }}</a>
+                            <a class="nav-link" href="{{url('/features') }}">{{ __('Features') }}</a>
+                            <a class="nav-link" href="{{url('/proficiencies') }}">{{ __('Proficiencies') }}</a>
                         </li>
                     </ul>
 
