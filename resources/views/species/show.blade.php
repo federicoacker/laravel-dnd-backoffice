@@ -5,24 +5,28 @@
 
         <h1 class="text-center text-capitalize">{{ $species->name }}</h1>
         <div class="container">
-            <div class="card-text">
-                {{ $species->description }}
-            </div>
+
             <hr>
             @if($species->image)
                 <img class="jumbo-image-show" src="{{ asset('storage/' . $species->image) }}" alt="immagine specie">
                 <hr>
             @endif
-            <div class="card-title">
-                <h2>Feature Razziali</h2>
-                <ul class="species-features">
-                    @foreach ($species->features as $feature)
-                        <li><a class="feature-title" href={{ route('features.show', $feature)}}>{{ $feature->name }}</a></li>
-                        <p class="feature-description">
-                            {{ $feature->description }}
-                        </p>
-                    @endforeach
-                </ul>
+            @if($species->features)
+                <div class="card-title">
+                    <h2>Feature Razziali</h2>
+                    <ul class="species-features">
+                        @foreach ($species->features as $feature)
+                            <li><a class="feature-title" href={{ route('features.show', $feature)}}>{{ $feature->name }}</a></li>
+                            <p class="feature-description">
+                                {{ $feature->description }}
+                            </p>
+                        @endforeach
+                    </ul>
+                </div>
+                <hr>
+            @endif
+            <div class="card-text">
+                {{ $species->description }}
             </div>
         </div>
 

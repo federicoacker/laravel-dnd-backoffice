@@ -1,11 +1,9 @@
 <div class="card">
     <div class="card-body">
-        <div class="d-flex justify-content-between">
-            <div>
-                <div class="card-title text-capitalize">
-                    {{ $name }}
-                </div>
-            </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="card-title text-capitalize mb-0">
+                {{ $name }}
+            </h2>
             <div class="d-flex justify-content-between gap-2">
                 <a class="btn btn-warning" href="{{ route("spells.edit", $selfSpell) }}">Modifica</a>
                 <button type="button" class="btn btn-danger px-1 py-0" data-bs-toggle="modal"
@@ -16,21 +14,21 @@
 
         </div>
         <hr>
-        <div class="card-subtitle">
+        <h5 class="card-subtitle my-2">
             Livello Spell: {{ $level }}
-        </div>
-        <div class="card-subtitle">
+        </h5>
+        <h5 class="card-subtitle my-2">
             Tempo di Cast: {{ $casting_time }}
-        </div>
-        <div class="card-subtitle">
+        </h5>
+        <h5 class="card-subtitle my-2">
             Range: {{ $range }}
-        </div>
-        <div class="card-subtitle">
+        </h5>
+        <h5 class="card-subtitle my-2">
             Componenti: {{ $components }}
-        </div>
-        <div class="card-subtitle">
+        </h5>
+        <h5 class="card-subtitle my-2">
             Durata: {{ $duration }}
-        </div>
+        </h5>
         <hr>
         <a class="btn btn-primary" href="{{ route('spells.show', $selfSpell) }}">Visualizza</a>
     </div>
