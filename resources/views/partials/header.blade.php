@@ -21,6 +21,7 @@
                             <a class="nav-link" href="{{url('/spells') }}">{{ __('Spells') }}</a>
                             <a class="nav-link" href="{{url('/species') }}">{{ __('Species') }}</a>
                             <a class="nav-link" href="{{url('/features') }}">{{ __('Features') }}</a>
+                            <a class="nav-link" href="{{url('/proficiencies') }}">{{ __('Proficiencies') }}</a>
                         </li>
                     </ul>
 

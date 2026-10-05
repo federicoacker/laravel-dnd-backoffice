@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\ProficiencyController;
 use App\Http\Controllers\Admin\SpeciesController;
 use App\Http\Controllers\Admin\SpellController;
 use App\Http\Controllers\ProfileController;
@@ -22,6 +23,9 @@ Route::resource('features', FeatureController::class)
 ->middleware(['auth', 'verified']);
 
 Route::resource('species', SpeciesController::class)
+->middleware(['auth', 'verified']);
+
+Route::resource('proficiencies', ProficiencyController::class)
 ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

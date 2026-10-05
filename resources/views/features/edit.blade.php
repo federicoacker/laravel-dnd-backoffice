@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container py-4">
-        <h1>Aggiungi una nuova feature</h1>
+        <h1>Modifica la feature: {{ $feature->name }}</h1>
         <form action="{{ route('features.update', $feature) }}" method="POST" class="form-control mb-4 d-flex flex-column">
             @csrf
             @method("PUT")
@@ -15,7 +15,7 @@
                 <option {{ $feature->type == "Species" ? "selected" : "" }} value="Species">Specie</option>
                 <option {{ $feature->type == "Profession" ? "selected" : "" }} value="Profession">Classe</option>
             </select>
-            <input class="btn btn-primary my-2" type="submit" value="Aggiungi">
+            <input class="btn btn-primary my-2" type="submit" value="Modifica">
         </form>
     </div>
 @endsection

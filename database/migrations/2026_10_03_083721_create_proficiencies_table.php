@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->text('description');
-            $table->string('ability_score', 20);
+            $table->string('ability_score', 20)->nullable();
             $table->string('type', 50);
             $table->timestamps();
         });
