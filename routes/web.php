@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BackgroundController;
 use App\Http\Controllers\Admin\FeatController;
 use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\ProfessionController;
 use App\Http\Controllers\Admin\ProficiencyController;
 use App\Http\Controllers\Admin\SpeciesController;
 use App\Http\Controllers\Admin\SpellController;
@@ -34,6 +35,9 @@ Route::resource('feats', FeatController::class)
 ->middleware(['auth', 'verified']);
 
 Route::resource('backgrounds', BackgroundController::class)
+->middleware(['auth', 'verified']);
+
+Route::resource('classes', ProfessionController::class)
 ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

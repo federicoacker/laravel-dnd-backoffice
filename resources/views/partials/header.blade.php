@@ -18,6 +18,7 @@
                 <li class="nav-item d-md-flex g-2">
                     <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
                     <a class="nav-link" href="{{url('/backgrounds') }}">{{ __('Backgrounds') }}</a>
+                    <a class="nav-link" href="{{url('/classes') }}">{{ __('Classes') }}</a>
                     <a class="nav-link" href="{{url('/spells') }}">{{ __('Spells') }}</a>
                     <a class="nav-link" href="{{url('/species') }}">{{ __('Species') }}</a>
                     <a class="nav-link" href="{{url('/features') }}">{{ __('Features') }}</a>
