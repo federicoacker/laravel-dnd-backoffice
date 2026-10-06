@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container my-3">
-    <a class="btn btn-primary my-2" href="{{ route('spells.create') }}">Aggiungi spell</a>
+    <a class="btn btn-primary my-2" href="{{ route('spells.create') }}">Aggiungi Spell</a>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
         @foreach($spells as $spell)
         <div class="col">

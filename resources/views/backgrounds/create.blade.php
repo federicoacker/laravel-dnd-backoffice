@@ -56,7 +56,7 @@
                             <input class="form-check" type="checkbox" name="proficiencies[]" id="{{$proficiency->name}}"
                                 value="{{ $proficiency->id }}">
                             <label class="form-label mb-0 text-capitalize"
-                                for="{{ $proficiency->name }}">{{$proficiency->name}}</label>
+                                for="{{ $proficiency->name }}">{{ $proficiency->type }}: {{$proficiency->name}}</label>
                         </li>
                     @endforeach
                 </ul>

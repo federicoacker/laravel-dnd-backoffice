@@ -29,6 +29,8 @@ class ProfessionsTableSeeder extends Seeder
         $newProfession->hit_points_at_level_1 = "8 + constitution modifier";
         $newProfession->armor_training = fake()->paragraph();
         $newProfession->starting_equipment = fake()->paragraph();
+        $newProfession->description = fake()->paragraph(12);
+        $newProfession->number_of_proficiencies = rand(2,4);
         $newProfession->save();
     }
 }

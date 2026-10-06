@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('hit_points_at_level_1', 255);
             $table->text('armor_training');
             $table->text('starting_equipment');
+            $table->text('description');
+            $table->tinyInteger('number_of_proficiencies')->default(2);
             $table->text('image')->nullable();
             $table->timestamps();
         });
