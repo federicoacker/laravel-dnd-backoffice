@@ -123,10 +123,65 @@
 
 }
 
-.class-privileges{
+.class-privileges {
     border: 1px solid rgba(0, 0, 0, 0.075);
-    h5{
+
+    h5 {
         padding: 5px 10px;
-        border-bottom:1px solid rgba(0, 0, 0, 0.075);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.075);
     }
+}
+
+.character-image {
+    height: 200px;
+    aspect-ratio: 1;
+}
+
+.ability-score {
+    border: 1px solid rgba(0, 0, 0, 0.075);
+    border-radius:5px;
+    padding:10px;
+}
+
+.proficient,
+.not-proficient{
+    position:relative;
+}
+.proficient::after{
+    content:"";
+    width:0.5rem;
+    height:0.5rem;
+    background-color:black;
+    border:1px solid black;
+    border-radius:50%;
+    left:0;
+    translate: -150% 100%;
+    position:absolute;
+}
+.not-proficient::after{
+    content:"";
+    width:0.5rem;
+    height:0.5rem;
+    border:1px solid black;
+    border-radius:50%;
+    left:0;
+    translate: -150% 100%;
+    position:absolute;
+}
+
+.proficiency-bonus,
+.profession,
+.level,
+.background{
+    border: 1px solid rgba(0, 0, 0, 0.075);
+    border-radius:5px;
+    padding:10px;
+}
+
+.character-create-proficiencies,
+.character-create-feats{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
 }

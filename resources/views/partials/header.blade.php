@@ -17,6 +17,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item d-md-flex g-2">
                     <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
+                    <a class="nav-link" href="{{url('/characters') }}">{{ __('Characters') }}</a>
                     <a class="nav-link" href="{{url('/backgrounds') }}">{{ __('Backgrounds') }}</a>
                     <a class="nav-link" href="{{url('/classes') }}">{{ __('Classes') }}</a>
                     <a class="nav-link" href="{{url('/spells') }}">{{ __('Spells') }}</a>

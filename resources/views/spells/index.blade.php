@@ -7,6 +7,7 @@
         @foreach($spells as $spell)
         <div class="col">
             <x-spell-card :selfSpell="$spell">
+                <x-slot:type>edit</x-slot:type>
                 <x-slot:name>{{ $spell->name }}</x-slot>
                 <x-slot:level>{{ $spell->level }}</x-slot>
                 <x-slot:casting_time>{{ $spell->casting_time }}</x-slot>

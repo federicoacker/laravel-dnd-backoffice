@@ -4,6 +4,7 @@
             <h2 class="card-title text-capitalize mb-0">
                 {{ $name }}
             </h2>
+            @if($type != "show")
             <div class="d-flex justify-content-between gap-2">
                 <a class="btn btn-warning" href="{{ route("spells.edit", $selfSpell) }}">Modifica</a>
                 <button type="button" class="btn btn-danger px-1 py-0" data-bs-toggle="modal"
@@ -11,6 +12,7 @@
                     Elimina
                 </button>
             </div>
+            @endif
 
         </div>
         <hr>
@@ -34,6 +36,7 @@
     </div>
 </div>
 
+@if($type != "show")
 <div class="modal fade" id="deleteModal-{{ $selfSpell->id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -58,3 +61,4 @@
         </div>
     </div>
 </div>
+@endif
