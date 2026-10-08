@@ -48,4 +48,8 @@ Route::match(['get', 'post'], '/characters/create/step2', [CharacterController::
 ->middleware(['auth','verified'])
 ->name('characters.create2');
 
+Route::match(['get', 'post'], '/characters/{character}/edit/step2', [CharacterController::class, 'edit2'])
+->middleware(['auth','verified'])
+->name('characters.edit2');
+
 require __DIR__.'/auth.php';

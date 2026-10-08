@@ -5,11 +5,11 @@
 
 @section('content')
     <div class="container py-4">
-        <h1>Continua la creazione</h1>
-        <form method="POST" action="{{ route('characters.store') }}" class="form-control mb-4 d-flex flex-column"
+        <h1>Continua la modifica</h1>
+        <form method="POST" action="{{ route('characters.update', $character) }}" class="form-control mb-4 d-flex flex-column"
             enctype="multipart/form-data">
             @csrf
-
+            @method('PUT')
             <label class="form-label" for="name">Nome</label>
             <input required type="text" class="form-control" name="name" id="name" value="{{ $name }}">
 
@@ -35,28 +35,28 @@
                 <div class="row row-cols-3 row-cols-xl-6 w-100">
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="strength" class="text-center form-label">Strength</label>
-                        <input class="form-control" required type="number" min="1" max="20" name="strength" id="strength">
+                        <input class="form-control" required type="number" min="1" max="20" name="strength" id="strength" value="{{ $character->strength }}">
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="dexterity" class="text-center form-label">Dexterity</label>
-                        <input class="form-control" required type="number" min="1" max="20" name="dexterity" id="dexterity">
+                        <input class="form-control" required type="number" min="1" max="20" name="dexterity" id="dexterity" value="{{ $character->dexterity }}">
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="constitution" class="text-center form-label">Constitution</label>
                         <input class="form-control" required type="number" min="1" max="20" name="constitution"
-                            id="constitution">
+                            id="constitution" value="{{ $character->constitution }}">
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="intellect" class="text-center form-label">Intellect</label>
-                        <input class="form-control" required type="number" min="1" max="20" name="intellect" id="intellect">
+                        <input class="form-control" required type="number" min="1" max="20" name="intellect" id="intellect" value="{{ $character->intellect }}">
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="wisdom" class="text-center form-label">Wisdom</label>
-                        <input class="form-control" required type="number" min="1" max="20" name="wisdom" id="wisdom">
+                        <input class="form-control" required type="number" min="1" max="20" name="wisdom" id="wisdom" value="{{ $character->wisdom }}">
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="charisma" class="text-center form-label">Charisma</label>
-                        <input class="form-control" required type="number" min="1" max="20" name="charisma" id="charisma">
+                        <input class="form-control" required type="number" min="1" max="20" name="charisma" id="charisma" value="{{ $character->charisma }}">
                     </div>
                 </div>
             </section>
@@ -151,7 +151,7 @@
                     <ul class="character-create-feats">
                         @foreach ($feats as $feat)
                             <li>
-                                <input {{ $feat->id == $background->feat->id ? "checked disabled" : "" }} type="checkbox" id="feat_{{$feat->id}}" name="feats[]" value="{{ $feat->id }}">
+                                <input {{ $character->feats->contains($feat->id) ? "checked" : ($feat->id == $background->feat->id ? "checked disabled" : "")}} type="checkbox" id="feat_{{$feat->id}}" name="feats[]" value="{{ $feat->id }}">
                                 <label class="form-label text-capitalize" for="feat_{{ $feat->id }}"><a
                                         href="{{ route('feats.show', $feat) }}">{{ $feat->name }}</a></label>
                                 <p class="card-text">{{ $feat->description }}</p>
@@ -165,15 +165,15 @@
                 </section>
             @endif
             <label class="form-label" for="backstory">Storia del personaggio</label>
-            <textarea class="form-control" id="backstory" name="backstory"></textarea>
+            <textarea class="form-control" id="backstory" name="backstory">{{ $character->backstory }}</textarea>
             <label class="form-label" for="inventory">Inventario</label>
-            <textarea class="form-control" id="inventory" name="inventory"
-                hidden>{{ $background->equipment . " " . $profession->starting_equipment }}</textarea>
-            <textarea class="form-control" id="inventory" name="inventory"
-                disabled>{{ $background->equipment . " " . $profession->starting_equipment }}</textarea>
+            <textarea required class="form-control" id="inventory" name="inventory"
+                >{{ $character->inventory }}</textarea>
             <label class="form-label" for="image">Immagine</label>
             <input class="form-control" type="file" name="image" id="image">
-
+            @if($character->image)
+            <img class="card-img-top" src="{{ asset('storage/'.$character->image) }}" alt="Immagine {{ $character->name }}">
+            @endif
             <input class="btn btn-primary my-2" type="submit" value="Vai al prossimo step">
         </form>
     </div>
