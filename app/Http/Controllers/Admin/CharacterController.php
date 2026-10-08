@@ -71,12 +71,13 @@ class CharacterController extends Controller
                 'name' => ['required', 'string'],
                 'level' => ['required', 'integer'],
                 'profession_proficiencies' => ['required', 'array', 'size:' . ($profession?->number_of_proficiencies ?? 0)],
-                'feats' => ['array', 'size:' . floor($data['level'] / 4)]
+                'feats' => [floor($data['level'])/4 > 0 ? 'required' : '','array', 'size:' . floor($data['level'] / 4)]
             ],
             [
                 'profession_proficiencies.required' => "Devi selezionare le proficiencies di classe.",
                 'profession_proficiencies.size' => "Devi selezionare esattamente il numero di proficiencies della tua classe.",
-                'feats.size' => "Devi selezionare " . floor($data['level'] / 4) . " feat"
+                'feats.size' => "Devi selezionare " . floor($data['level'] / 4) . " feat",
+                'feats.required' => "Devi selezionare i feat"
             ]
         );
 
@@ -106,8 +107,9 @@ class CharacterController extends Controller
         $newCharacter->proficiencies()->attach($proficiencies);
 
         $background_feat = Background::find($data['background_id'])->feat->id;
-
-        $feats = $data['feats'];
+        if($request->has('feats')){
+            $feats = $data['feats'];
+        }
         $feats[] = $background_feat;
 
         $newCharacter->feats()->attach($feats);
@@ -134,7 +136,7 @@ class CharacterController extends Controller
         $backgrounds = Background::all();
         $species = Species::all();
 
-        return view('characters.edit', compact('character', 'professions', 'backgrounds', 'species'));
+        return view("characters.edit", compact('character', 'professions', 'backgrounds', 'species'));
     }
     public function edit2(Request $request, Character $character)
     {
@@ -151,7 +153,7 @@ class CharacterController extends Controller
 
 
         if (!$profession || !$background || !$species) {
-            return redirect()->route('characters.edit')->with('error', 'Sessione scaduta. Ricomincia la modifica.');
+            return redirect()->route('characters.edit', $character)->with('error', 'Sessione scaduta. Ricomincia la modifica.');
         }
 
         return view('characters.edit2', compact('name', 'level', 'profession', 'background', 'species', 'feats', 'character'));
@@ -164,7 +166,6 @@ class CharacterController extends Controller
     {
         $data = $request->all();
         $profession = Profession::find($request->input('profession_id'));
-
         $validated = $request->validate(
             [
                 'profession_id' => ['required', 'exists:professions,id'],

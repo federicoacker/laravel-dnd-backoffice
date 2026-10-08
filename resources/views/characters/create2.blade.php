@@ -14,7 +14,8 @@
             <input required type="text" class="form-control" name="name" id="name" value="{{ $name }}">
 
             <label class="form-label" for="level">Livello</label>
-            <input required type="number" class="form-control" name="level" id="level" value="{{ $level }}">
+            <input disabled type="number" class="form-control" name="level" id="level" value="{{ $level }}">
+            <input required type="hidden" class="form-control" name="level" id="level" value="{{ $level }}">
 
             <label class="form-label" for="species_id">Razza</label>
             <input required type="text" disabled class="form-control" id="species_id" value="{{ $species->name }}">
@@ -91,8 +92,8 @@
                 </ul>
                 <label class="form-label" for="armor_training">Proficiency Armature:</label>
                 <textarea class="form-control" disabled name="armor_training" id="armor_training" class="card-text">
-                    {{ $profession->armor_training }}
-                </textarea>
+                        {{ $profession->armor_training }}
+                    </textarea>
             </section>
             <section class="features">
                 <h2 class="species-features text-center">
@@ -117,7 +118,7 @@
                         </li>
                     @endforeach
                 </ul>
-                <h2 class="text-center">Feat da Background</h2>
+                <h2 class="text-center">Feat da Background:</h2>
                 <ul>
                     @foreach ($background->feat()->get() as $feat)
                         <li>
@@ -126,35 +127,25 @@
                         </li>
                     @endforeach
                 </ul>
-                @if(count($profession->spells) > 0)
-                    <h2 class="text-center">Spells:</h2>
-                    <ul class="d-flex flex-wrap">
-                        @foreach($profession->spells()->orderBy('level')->get() as $spell)
-                            <li class="d-flex flex-column">
-                                <a href="{{ route('spells.show', $spell) }}">{{ $spell->name }}</a>
-                                <p class="card-text mb-0">Level: {{ $spell->level }}</p>
-                                <p class="card-text mb-0">Components: {{ $spell->components }}</p>
-                                <p class="card-text mb-0">Action: {{ $spell->action }}</p>
-                                <p class="card-text mb-0">Duration: {{ $spell->duration }}</p>
-                                <p class="card-text mb-0">Range: {{ $spell->range }}</p>
-                                <h5>Description:</h5>
-                                <p class="card-text mb-0">{{ $spell->description }}</p>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
+
             </section>
             @if ($number_of_feats > 0)
                 <section class="feats">
                     <h2 class="text-center">Seleziona i feat</h2>
                     <h3 class="text-center">Devi selezionare {{ $number_of_feats }} Feats</h3>
                     <ul class="character-create-feats">
-                        @foreach ($feats as $feat)
+                        @php
+                            $selectable_feats = array_filter($feats->toArray(), function ($feat) use ($background) {
+                                return $feat['id'] != $background->feat->id;
+                            });
+                        @endphp
+                        @foreach ($selectable_feats as $feat)
                             <li>
-                                <input {{ $feat->id == $background->feat->id ? "checked disabled" : "" }} type="checkbox" id="feat_{{$feat->id}}" name="feats[]" value="{{ $feat->id }}">
-                                <label class="form-label text-capitalize" for="feat_{{ $feat->id }}"><a
-                                        href="{{ route('feats.show', $feat) }}">{{ $feat->name }}</a></label>
-                                <p class="card-text">{{ $feat->description }}</p>
+                                <input {{ $feat['id'] == $background->feat->id ? "checked disabled" : ""}} type="checkbox"
+                                    id="feat_{{$feat['id']}}" name="feats[]" value="{{ $feat['id'] }}">
+                                <label class="form-label text-capitalize" for="feat_{{ $feat['id'] }}"><a
+                                        href="{{ route('feats.show', $feat['id']) }}">{{ $feat['name'] }}</a></label>
+                                <p class="card-text">{{ $feat['description'] }}</p>
                             </li>
 
                         @endforeach
@@ -163,6 +154,23 @@
                         <div style="color: red;">{{ $message }}</div>
                     @enderror
                 </section>
+            @endif
+            @if(count($profession->spells) > 0)
+                <h2 class="text-center">Spells:</h2>
+                <ul class="d-flex flex-wrap">
+                    @foreach($profession->spells()->orderBy('level')->get() as $spell)
+                        <li class="d-flex flex-column">
+                            <a href="{{ route('spells.show', $spell) }}">{{ $spell->name }}</a>
+                            <p class="card-text mb-0">Level: {{ $spell->level }}</p>
+                            <p class="card-text mb-0">Components: {{ $spell->components }}</p>
+                            <p class="card-text mb-0">Action: {{ $spell->action }}</p>
+                            <p class="card-text mb-0">Duration: {{ $spell->duration }}</p>
+                            <p class="card-text mb-0">Range: {{ $spell->range }}</p>
+                            <h5>Description:</h5>
+                            <p class="card-text mb-0">{{ $spell->description }}</p>
+                        </li>
+                    @endforeach
+                </ul>
             @endif
             <label class="form-label" for="backstory">Storia del personaggio</label>
             <textarea class="form-control" id="backstory" name="backstory"></textarea>
@@ -174,7 +182,7 @@
             <label class="form-label" for="image">Immagine</label>
             <input class="form-control" type="file" name="image" id="image">
 
-            <input class="btn btn-primary my-2" type="submit" value="Vai al prossimo step">
+            <input class="btn btn-primary my-2" type="submit" value="Crea il personaggio">
         </form>
     </div>
 @endsection

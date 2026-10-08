@@ -6,8 +6,8 @@
 @section('content')
     <div class="container py-4">
         <h1>Continua la modifica</h1>
-        <form method="POST" action="{{ route('characters.update', $character) }}" class="form-control mb-4 d-flex flex-column"
-            enctype="multipart/form-data">
+        <form method="POST" action="{{ route('characters.update', $character) }}"
+            class="form-control mb-4 d-flex flex-column" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <label class="form-label" for="name">Nome</label>
@@ -35,11 +35,13 @@
                 <div class="row row-cols-3 row-cols-xl-6 w-100">
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="strength" class="text-center form-label">Strength</label>
-                        <input class="form-control" required type="number" min="1" max="20" name="strength" id="strength" value="{{ $character->strength }}">
+                        <input class="form-control" required type="number" min="1" max="20" name="strength" id="strength"
+                            value="{{ $character->strength }}">
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="dexterity" class="text-center form-label">Dexterity</label>
-                        <input class="form-control" required type="number" min="1" max="20" name="dexterity" id="dexterity" value="{{ $character->dexterity }}">
+                        <input class="form-control" required type="number" min="1" max="20" name="dexterity" id="dexterity"
+                            value="{{ $character->dexterity }}">
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="constitution" class="text-center form-label">Constitution</label>
@@ -48,15 +50,18 @@
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="intellect" class="text-center form-label">Intellect</label>
-                        <input class="form-control" required type="number" min="1" max="20" name="intellect" id="intellect" value="{{ $character->intellect }}">
+                        <input class="form-control" required type="number" min="1" max="20" name="intellect" id="intellect"
+                            value="{{ $character->intellect }}">
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="wisdom" class="text-center form-label">Wisdom</label>
-                        <input class="form-control" required type="number" min="1" max="20" name="wisdom" id="wisdom" value="{{ $character->wisdom }}">
+                        <input class="form-control" required type="number" min="1" max="20" name="wisdom" id="wisdom"
+                            value="{{ $character->wisdom }}">
                     </div>
                     <div class="col d-flex flex-column justify-content-center align-content-center ability-score">
                         <label for="charisma" class="text-center form-label">Charisma</label>
-                        <input class="form-control" required type="number" min="1" max="20" name="charisma" id="charisma" value="{{ $character->charisma }}">
+                        <input class="form-control" required type="number" min="1" max="20" name="charisma" id="charisma"
+                            value="{{ $character->charisma }}">
                     </div>
                 </div>
             </section>
@@ -78,7 +83,7 @@
                 <ul class="character-create-proficiencies">
                     @foreach($profession->proficiencies()->orderBy('type')->get() as $profession_proficiency)
                         <li>
-                            <input {{ $background->proficiencies->contains($profession_proficiency->id) ? "checked disabled" : "" }} type="checkbox" id="profession_proficiency_{{$profession_proficiency->id}}"
+                            <input {{ $background->proficiencies->contains($profession_proficiency->id) ? "checked disabled" : ($character->proficiencies->contains($profession_proficiency->id) ? "checked" : "") }} type="checkbox" id="profession_proficiency_{{$profession_proficiency->id}}"
                                 name="profession_proficiencies[]" value="{{ $profession_proficiency->id }}">
                             <label class="form-label text-capitalize"
                                 for="profession_proficiency_{{ $profession_proficiency->id }}">{{ $profession_proficiency->type }}:
@@ -91,8 +96,8 @@
                 </ul>
                 <label class="form-label" for="armor_training">Proficiency Armature:</label>
                 <textarea class="form-control" disabled name="armor_training" id="armor_training" class="card-text">
-                    {{ $profession->armor_training }}
-                </textarea>
+                        {{ $profession->armor_training }}
+                    </textarea>
             </section>
             <section class="features">
                 <h2 class="species-features text-center">
@@ -117,15 +122,7 @@
                         </li>
                     @endforeach
                 </ul>
-                <h2 class="text-center">Feat da Background</h2>
-                <ul>
-                    @foreach ($background->feat()->get() as $feat)
-                        <li>
-                            <a class="text-capitalize" href="{{ route('feats.show', $feat) }}">{{ $feat->name}}</a>
-                            <p class="card-text">{{ $feat->description }}</p>
-                        </li>
-                    @endforeach
-                </ul>
+
                 @if(count($profession->spells) > 0)
                     <h2 class="text-center">Spells:</h2>
                     <ul class="d-flex flex-wrap">
@@ -144,17 +141,32 @@
                     </ul>
                 @endif
             </section>
+            <h2 class="text-center">Feat da Background</h2>
+            <ul>
+                @foreach ($background->feat()->get() as $feat)
+                    <li>
+                        <a class="text-capitalize" href="{{ route('feats.show', $feat) }}">{{ $feat->name}}</a>
+                        <p class="card-text">{{ $feat->description }}</p>
+                    </li>
+                @endforeach
+            </ul>
             @if ($number_of_feats > 0)
                 <section class="feats">
                     <h2 class="text-center">Seleziona i feat</h2>
                     <h3 class="text-center">Devi selezionare {{ $number_of_feats }} Feats</h3>
                     <ul class="character-create-feats">
-                        @foreach ($feats as $feat)
+                        @php
+                            $selectable_feats = array_filter($feats->toArray(), function ($feat) use ($background) {
+                                return $feat['id'] != $background->feat->id;
+                            });
+                        @endphp
+                        @foreach ($selectable_feats as $feat)
                             <li>
-                                <input {{ $character->feats->contains($feat->id) ? "checked" : ($feat->id == $background->feat->id ? "checked disabled" : "")}} type="checkbox" id="feat_{{$feat->id}}" name="feats[]" value="{{ $feat->id }}">
-                                <label class="form-label text-capitalize" for="feat_{{ $feat->id }}"><a
-                                        href="{{ route('feats.show', $feat) }}">{{ $feat->name }}</a></label>
-                                <p class="card-text">{{ $feat->description }}</p>
+                                <input {{ $feat['id'] == $background->feat->id ? "checked disabled" : ($character->feats->contains($feat['id']) ? "checked" : "")}} type="checkbox"
+                                    id="feat_{{$feat['id']}}" name="feats[]" value="{{ $feat['id'] }}">
+                                <label class="form-label text-capitalize" for="feat_{{ $feat['id'] }}"><a
+                                        href="{{ route('feats.show', $feat['id']) }}">{{ $feat['name'] }}</a></label>
+                                <p class="card-text">{{ $feat['description'] }}</p>
                             </li>
 
                         @endforeach
@@ -167,14 +179,13 @@
             <label class="form-label" for="backstory">Storia del personaggio</label>
             <textarea class="form-control" id="backstory" name="backstory">{{ $character->backstory }}</textarea>
             <label class="form-label" for="inventory">Inventario</label>
-            <textarea required class="form-control" id="inventory" name="inventory"
-                >{{ $character->inventory }}</textarea>
+            <textarea required class="form-control" id="inventory" name="inventory">{{ $character->inventory }}</textarea>
             <label class="form-label" for="image">Immagine</label>
             <input class="form-control" type="file" name="image" id="image">
             @if($character->image)
-            <img class="card-img-top" src="{{ asset('storage/'.$character->image) }}" alt="Immagine {{ $character->name }}">
+                <img class="card-img-top" src="{{ asset('storage/' . $character->image) }}" alt="Immagine {{ $character->name }}">
             @endif
-            <input class="btn btn-primary my-2" type="submit" value="Vai al prossimo step">
+            <input class="btn btn-primary my-2" type="submit" value="Salva le modifiche">
         </form>
     </div>
 @endsection

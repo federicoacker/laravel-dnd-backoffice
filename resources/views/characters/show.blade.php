@@ -42,10 +42,10 @@
                 <section class="row row-cols-1 row-cols-xl-2 header-information">
                     <div class="col d-flex align-items-center justify-content-center">
                         @if($character->image)
-                            <img src="{{ asset('storage/'.$character->image) }}" alt="Immagine {{ $character->name }}" class="character-image">
+                            <img src="{{ asset('storage/'.$character->image) }}" alt="Immagine {{ $character->name }}" class="character-image mb-2">
                         @else
                             <img src="{{ asset('storage/characters/placeholder.svg') }}" alt="Immagine Placeholder"
-                                class="character-image">
+                                class="character-image mb-2">
                         @endif
                     </div>
                     <section class="col ability-scores">
