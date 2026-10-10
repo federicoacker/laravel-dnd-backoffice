@@ -14,7 +14,10 @@
             <input required type="text" class="form-control" name="name" id="name" value="{{ $name }}">
 
             <label class="form-label" for="level">Livello</label>
-            <input required type="number" class="form-control" name="level" id="level" value="{{ $level }}">
+            <input required type="number" class="form-control" name="level" id="level" value="{{ $level }}" min="1" max="20"
+                disabled>
+            <input required type="hidden" class="form-control" name="level" id="level" value="{{ $level }}" min="1"
+                max="20">
 
             <label class="form-label" for="species_id">Razza</label>
             <input required type="text" disabled class="form-control" id="species_id" value="{{ $species->name }}">
@@ -78,26 +81,44 @@
                     @endforeach
                 </ul>
                 <h2 class="text-center">Proficiencies di Classe:</h2>
-                <h3 class="text-center">Seleziona {{ $profession->number_of_proficiencies }} proficiencies da questa lista:
+                <h3 class="text-center">Seleziona {{ $profession->number_of_skill_proficiencies }} proficiencies da questa
+                    lista:
                 </h3>
                 <ul class="character-create-proficiencies">
-                    @foreach($profession->proficiencies()->where("type", "NOT LIKE", "Weapon")->orderBy('type')->get() as $profession_proficiency)
+                    @foreach($profession->proficiencies()->where("type", "LIKE", "Skill")->orderBy('type')->get() as $profession_proficiency)
                         <li>
                             <input {{ $background->proficiencies->contains($profession_proficiency->id) ? "checked disabled" : ($character->proficiencies->contains($profession_proficiency->id) ? "checked" : "") }} type="checkbox" id="profession_proficiency_{{$profession_proficiency->id}}"
-                                name="profession_proficiencies[]" value="{{ $profession_proficiency->id }}">
+                                name="profession_skill_proficiencies[]" value="{{ $profession_proficiency->id }}">
                             <label class="form-label text-capitalize"
                                 for="profession_proficiency_{{ $profession_proficiency->id }}">{{ $profession_proficiency->type }}:
                                 {{ $profession_proficiency->name }} ({{ $profession_proficiency->ability_score }})</label>
                         </li>
                     @endforeach
-                    @error('profession_proficiencies')
+                    @error('profession_skill_proficiencies')
                         <div style="color: red;">{{ $message }}</div>
                     @enderror
                 </ul>
+                @if($profession->number_of_tool_proficiencies > 0)
+                    <h3 class="text-center">Seleziona {{ $profession->number_of_tool_proficiencies }} proficiencies da questa
+                        lista:
+                    </h3>
+                    <ul class="character-create-proficiencies">
+                        @foreach($profession->proficiencies()->where("type", "LIKE", $profession->type_of_tool_proficiencies)->orderBy('name')->get() as $profession_proficiency)
+                            <li>
+                                <input {{ $background->proficiencies->contains($profession_proficiency->id) ? "checked disabled" : ($character->proficiencies->contains($profession_proficiency->id) ? "checked" : "") }} type="checkbox" id="profession_proficiency_{{$profession_proficiency->id}}"
+                                    name="profession_tool_proficiencies[]" value="{{ $profession_proficiency->id }}">
+                                <label class="form-label text-capitalize"
+                                    for="profession_proficiency_{{ $profession_proficiency->id }}">{{ $profession_proficiency->type }}:
+                                    {{ $profession_proficiency->name }} ({{ $profession_proficiency->ability_score }})</label>
+                            </li>
+                        @endforeach
+                        @error('profession_tool_proficiencies')
+                            <div style="color: red;">{{ $message }}</div>
+                        @enderror
+                    </ul>
+                @endif
                 <label class="form-label" for="armor_training">Proficiency Armature:</label>
-                <textarea class="form-control" disabled name="armor_training" id="armor_training" class="card-text">
-                        {{ $profession->armor_training }}
-                    </textarea>
+                <textarea class="form-control" disabled name="armor_training" id="armor_training" class="card-text">{{ $profession->armor_training }}</textarea>
             </section>
             <section class="features">
                 <h2 class="species-features text-center">
@@ -183,7 +204,8 @@
             <label class="form-label" for="image">Immagine</label>
             <input class="form-control" type="file" name="image" id="image">
             @if($character->image)
-                <img class="card-img-top" src="{{ asset('storage/' . $character->image) }}" alt="Immagine {{ $character->name }}">
+                <img class="card-img-top" src="{{ asset('storage/' . $character->image) }}"
+                    alt="Immagine {{ $character->name }}">
             @endif
             <input class="btn btn-primary my-2" type="submit" value="Salva le modifiche">
         </form>

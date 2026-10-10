@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('hit_points_die', 255);
             $table->string('hit_points_at_level_1', 255);
             $table->string('saving_throws', 255);
-            $table->text('armor_training');
+            $table->text('armor_training')->nullable();
             $table->text('starting_equipment');
             $table->text('description');
             $table->tinyInteger('number_of_skill_proficiencies')->default(2);

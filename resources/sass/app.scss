@@ -97,7 +97,7 @@
 
 .jumbo-image-show {
     width: 100%;
-    height: 500px;
+    height: auto;
     object-fit: cover;
     object-position: top;
 }
@@ -195,4 +195,32 @@
     aspect-ratio:auto;
     object-fit:cover;
     object-position:top;
+}
+
+.feature-description{
+    tr:nth-child(even){
+        background-color: rgba(0,0,0,0.5);
+        color:white;
+    }
+    tr{
+        border-top: 1px solid grey;
+        border-bottom:1px solid grey;
+        td{
+            border-left:1px solid black;
+            border-right:1px solid black;
+            text-align: center;
+        }
+        
+        th{
+            text-align:center;
+            border-left:1px solid grey;
+            border-right:1px solid grey;
+            padding:1rem;
+        }
+    }
+}
+.feature-text{
+    border:1px solid grey; 
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
 }

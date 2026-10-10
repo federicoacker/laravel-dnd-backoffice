@@ -41,12 +41,24 @@
                 <option value="{{ $hp }}">{{ $hp }}</option>
                 @endforeach
             </select>
+            <label class="form-label" for="saving_throws">Tiri salvezza</label>
+            <input required class="form-control" type="text" id="saving_throws" name="saving_throws">
 
             <label class="form-label" for="armor_training">Competenze Armatura</label>
             <textarea class="form-control" name="armor_training" id="armor_training"></textarea>
 
-            <label class="form-label" for="number_of_proficiencies">Numero di competenze selezionabili</label>
-            <input required class="form-control" type="number" min="2" max="8" name="number_of_proficiencies" id="number_of_proficiencies">
+            <label class="form-label" for="number_of_skill_proficiencies">Numero di competenze skill selezionabili</label>
+            <input required class="form-control" type="number" min="2" max="8" name="number_of_skill_proficiencies" id="number_of_skill_proficiencies">
+
+            <label class="form-label" for="number_of_tool_proficiencies">Numero di competenze tool selezionabili</label>
+            <input required class="form-control" type="number" min="2" max="8" name="number_of_tool_proficiencies"
+                id="number_of_tool_proficiencies">
+
+            <label class="form-label" for="type_of_tool_proficiencies">Tipo di tool proficiencies selezionabili</label>
+            <select class="form-select" name="type_of_tool_proficiencies" id="type_of_tool_proficiencies">
+                <option value="Tool">Tool</option>
+                <option value="Musical Instrument">Musical Instrument</option>
+            </select>
 
             <div class="dropdown my-2">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -56,9 +68,9 @@
                 <ul class="dropdown-menu px-2" data-bs-autohide="false">
                     @foreach ($proficiencies as $proficiency)
                         <li class="d-flex gap-2">
-                            <input class="form-check" type="checkbox" name="proficiencies[]" id="{{ $proficiency->name }}"
+                            <input class="form-check" type="checkbox" name="proficiencies[]" id="{{ $proficiency->id }}"
                                 value="{{ $proficiency->id }}">
-                            <label class="form-label mb-0 text-capitalize" for="{{ $proficiency->name }}">
+                            <label class="form-label mb-0 text-capitalize" for="{{ $proficiency->id }}">
                                 {{ $proficiency->type }}: {{ $proficiency->name }}</label>
                         </li>
                     @endforeach
@@ -76,9 +88,9 @@
                 <ul class="dropdown-menu px-2" data-bs-autohide="false">
                     @foreach ($features as $feature)
                         <li class="d-flex gap-2">
-                            <input class="form-check" type="checkbox" name="features[]" id="{{ $feature->name }}"
+                            <input class="form-check" type="checkbox" name="features[]" id="{{ $feature->name.$feature->id }}"
                                 value="{{ $feature->id }}">
-                            <label class="form-label mb-0 text-capitalize" for="{{ $feature->name }}">
+                            <label class="form-label mb-0 text-capitalize" for="{{ $feature->name.$feature->id }}">
                                 {{ $feature->name }}</label>
                         </li>
                     @endforeach

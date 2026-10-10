@@ -53,7 +53,14 @@ class ProfessionController extends Controller
         $newProfession->hit_points_die = $data['hit_points_die'];
         $newProfession->hit_points_at_level_1 = $data['hit_points_at_level_1'];
         $newProfession->armor_training = $data['armor_training'];
-        $newProfession->number_of_proficiencies = $data['number_of_proficiencies'];
+        $newProfession->saving_throws = $data['saving_throws'];
+        $newProfession->number_of_skill_proficiencies = $data['number_of_skill_proficiencies'];
+        if($request->has('number_of_tool_proficiencies')){
+            $newProfession->number_of_tool_proficiencies = $data['number_of_tool_proficiencies'];
+        }
+        if($request->has('type_of_tool_proficiencies')){
+            $newProfession->type_of_tool_proficiencies = $data['type_of_tool_proficiencies'];
+        }
         $newProfession->starting_equipment = $data['starting_equipment'];
 
         if ($request->has('image')) {
@@ -115,7 +122,14 @@ class ProfessionController extends Controller
         $class->hit_points_die = $data['hit_points_die'];
         $class->hit_points_at_level_1 = $data['hit_points_at_level_1'];
         $class->armor_training = $data['armor_training'];
-        $class->number_of_proficiencies = $data['number_of_proficiencies'];
+        $class->number_of_skill_proficiencies = $data['number_of_skill_proficiencies'];
+        $class->saving_throws = $data['saving_throws'];
+        if($request->has('number_of_tool_proficiencies')){
+            $class->number_of_tool_proficiencies = $data['number_of_tool_proficiencies'];
+        }
+        if($request->has('type_of_tool_proficiencies')){
+            $class->type_of_tool_proficiencies = $data['type_of_tool_proficiencies'];
+        }
         $class->starting_equipment = $data['starting_equipment'];
 
         if ($request->has('image')) {

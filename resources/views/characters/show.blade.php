@@ -151,6 +151,17 @@
                             </div>
                             <hr>
 
+                            <div class="saving-throws">
+                                <h5 class="card-subtitle">Tiri Salvezza:</h5>
+                                @php
+                                    $saving_throws = explode(", ", $character->profession->saving_throws);
+                                @endphp
+                                <ul>
+                                    @foreach($saving_throws as $saving_throw)
+                                    <li>{{ $saving_throw . " +".$matching_scores_to_mods[$saving_throw] + $proficiency_bonus }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                         <div class="col">
                             <h4>Equipaggiamento:</h4>

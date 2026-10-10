@@ -9,7 +9,7 @@
             <h5 class="text-center text-capitalize>">Tipo di Feature: {{ $feature->type }}</h5>
             <hr>
             <div class="container">
-                <div class="card-text">
+                <div class="card-text feature-description">
                     {!! nl2br($feature->description) !!}
                 </div>
             </div>
