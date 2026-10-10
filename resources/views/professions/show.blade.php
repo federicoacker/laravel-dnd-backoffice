@@ -19,13 +19,7 @@
                     <h5 class="card-subtitle">Competenze: </h5>
                     <ul class="profession-card-list">
                         <h6 class="card-subtitle mb-2">Scegli {{ $class->number_of_proficiencies }} proficiencies tra:</h6>
-                        @php
-                            $proficiencies = $class->proficiencies()->get()->toArray();
-                            usort($proficiencies, function ($a, $b) {
-                                return strcmp($a['type'], $b['type']);
-                            });
-                        @endphp
-                        @foreach($proficiencies as $proficiency)
+                        @foreach($proficiencies = $class->proficiencies()->where("type", "NOT LIKE", "Weapon")->orderBy("type")->get() as $proficiency)
                             <li><a href="{{ route('proficiencies.show', $proficiency['id']) }}"
                                     class="text-capitalize">{{ $proficiency['type'] }}: {{ $proficiency['name'] }}
                                     ({{ $proficiency['ability_score'] }})</a></li>

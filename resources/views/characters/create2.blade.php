@@ -74,26 +74,45 @@
                     @endforeach
                 </ul>
                 <h2 class="text-center">Proficiencies di Classe:</h2>
-                <h3 class="text-center">Seleziona {{ $profession->number_of_proficiencies }} proficiencies da questa lista:
+                <h3 class="text-center">Seleziona {{ $profession->number_of_skill_proficiencies }} proficiencies da questa
+                    lista:
                 </h3>
                 <ul class="character-create-proficiencies">
-                    @foreach($profession->proficiencies()->orderBy('type')->get() as $profession_proficiency)
+                    @foreach($profession->proficiencies()->where("type", "LIKE", "Skill")->orderBy('type')->get() as $profession_proficiency)
                         <li>
                             <input {{ $background->proficiencies->contains($profession_proficiency->id) ? "checked disabled" : "" }} type="checkbox" id="profession_proficiency_{{$profession_proficiency->id}}"
-                                name="profession_proficiencies[]" value="{{ $profession_proficiency->id }}">
+                                name="profession_skill_proficiencies[]" value="{{ $profession_proficiency->id }}">
                             <label class="form-label text-capitalize"
                                 for="profession_proficiency_{{ $profession_proficiency->id }}">{{ $profession_proficiency->type }}:
                                 {{ $profession_proficiency->name }} ({{ $profession_proficiency->ability_score }})</label>
                         </li>
                     @endforeach
-                    @error('profession_proficiencies')
+                    @error('profession_skill_proficiencies')
                         <div style="color: red;">{{ $message }}</div>
                     @enderror
                 </ul>
+                @if($profession->number_of_tool_proficiencies > 0)
+                <h3 class="text-center">Seleziona {{ $profession->number_of_tool_proficiencies }} proficiencies da questa
+                    lista:
+                </h3>
+                    <ul class="character-create-proficiencies">
+                        @foreach($profession->proficiencies()->where("type", "LIKE", $profession->type_of_tool_proficiencies)->orderBy('name')->get() as $profession_proficiency)
+                            <li>
+                                <input {{ $background->proficiencies->contains($profession_proficiency->id) ? "checked disabled" : "" }} type="checkbox" id="profession_proficiency_{{$profession_proficiency->id}}"
+                                    name="profession_tool_proficiencies[]" value="{{ $profession_proficiency->id }}">
+                                <label class="form-label text-capitalize"
+                                    for="profession_proficiency_{{ $profession_proficiency->id }}">{{ $profession_proficiency->type }}:
+                                    {{ $profession_proficiency->name }} ({{ $profession_proficiency->ability_score }})</label>
+                            </li>
+                        @endforeach
+                        @error('profession_tool_proficiencies')
+                            <div style="color: red;">{{ $message }}</div>
+                        @enderror
+                    </ul>
+                @endif
                 <label class="form-label" for="armor_training">Proficiency Armature:</label>
-                <textarea class="form-control" disabled name="armor_training" id="armor_training" class="card-text">
-                        {{ $profession->armor_training }}
-                    </textarea>
+                <textarea class="form-control" disabled name="armor_training" id="armor_training"
+                    class="card-text">{{ $profession->armor_training }}</textarea>
             </section>
             <section class="features">
                 <h2 class="species-features text-center">

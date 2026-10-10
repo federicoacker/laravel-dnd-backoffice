@@ -64,22 +64,28 @@ class CharacterController extends Controller
     {
         $data = $request->all();
         $profession = Profession::find($request->input('profession_id'));
-
+        $number_of_feats = (int) floor($data['level'] / 4);
         $validated = $request->validate(
             [
-                'profession_id' => ['required', 'exists:professions,id'],
+                'profession_id' => ['required'],
                 'name' => ['required', 'string'],
-                'level' => ['required', 'integer'],
-                'profession_proficiencies' => ['required', 'array', 'size:' . ($profession?->number_of_proficiencies ?? 0)],
-                'feats' => [floor($data['level'])/4 > 0 ? 'required' : '','array', 'size:' . floor($data['level'] / 4)]
+                'level' => ['required', 'string'],
+                'profession_skill_proficiencies' => ['required', 'array', 'size:' . ($profession?->number_of_skill_proficiencies ?? 0)],
+                'profession_tool_proficiencies' => ['array', 'size:' . ($profession?->number_of_tool_proficiencies ?? 0)],
+                'feats' => $number_of_feats > 0 ? ['required', 'array', 'size:' . $number_of_feats] : ''
             ],
             [
-                'profession_proficiencies.required' => "Devi selezionare le proficiencies di classe.",
-                'profession_proficiencies.size' => "Devi selezionare esattamente il numero di proficiencies della tua classe.",
-                'feats.size' => "Devi selezionare " . floor($data['level'] / 4) . " feat",
+                'profession_skill_proficiencies.required' => "Devi selezionare le proficiencies di classe.",
+                'profession_skill_proficiencies.size' => "Devi selezionare esattamente il numero di proficiencies della tua classe.",
+                'profession_tool_proficiencies.size' => "Devi selezionare esattamente il numero di proficiencies della tua classe.",
+                'feats.size' => "Devi selezionare " . $number_of_feats . " feat",
                 'feats.required' => "Devi selezionare i feat"
             ]
         );
+        $proficiencies = array_merge($data['profession_skill_proficiencies'], $data['background_proficiencies']);
+        if ($request->has('profession_tool_proficiencies')) {
+            $proficiencies = array_merge($proficiencies, $data['profession_tool_proficiencies']);
+        }
 
         $newCharacter = new Character();
         $newCharacter->name = $data['name'];
@@ -101,13 +107,12 @@ class CharacterController extends Controller
             $img_path = Storage::putFile('characters', $request->file('image'));
             $newCharacter->image = $img_path;
         }
-        $proficiencies = array_merge($data['profession_proficiencies'], $data['background_proficiencies']);
         $newCharacter->save();
 
         $newCharacter->proficiencies()->attach($proficiencies);
 
         $background_feat = Background::find($data['background_id'])->feat->id;
-        if($request->has('feats')){
+        if ($request->has('feats')) {
             $feats = $data['feats'];
         }
         $feats[] = $background_feat;
@@ -166,18 +171,23 @@ class CharacterController extends Controller
     {
         $data = $request->all();
         $profession = Profession::find($request->input('profession_id'));
+        $number_of_feats = (int) floor($data['level'] / 4);
         $validated = $request->validate(
             [
-                'profession_id' => ['required', 'exists:professions,id'],
+                'profession_id' => ['required'],
                 'name' => ['required', 'string'],
-                'level' => ['required', 'integer'],
-                'profession_proficiencies' => ['required', 'array', 'size:' . ($profession?->number_of_proficiencies ?? 0)],
-                'feats' => ['array', 'size:' . floor($data['level'] / 4)]
+                'level' => ['required', 'string'],
+                'profession_skill_proficiencies' => ['required', 'array', 'size:' . ($profession?->number_of_skill_proficiencies ?? 0)],
+                'profession_tool_proficiencies' => ['array', 'size:' . ($profession?->number_of_tool_proficiencies ?? 0)],
+                'feats' => $number_of_feats > 0 ? ['required', 'array', 'size:' . $number_of_feats] : ''
             ],
             [
-                'profession_proficiencies.required' => "Devi selezionare le proficiencies di classe.",
-                'profession_proficiencies.size' => "Devi selezionare esattamente il numero di proficiencies della tua classe.",
-                'feats.size' => "Devi selezionare " . floor($data['level'] / 4) . " feat"
+                'profession_skill_proficiencies.required' => "Devi selezionare le proficiencies di classe.",
+                'profession_skill_proficiencies.size' => "Devi selezionare esattamente il numero di proficiencies della tua classe.",
+                'profession_tool_proficiencies.required' => "Devi selezionare le proficiencies di classe.",
+                'profession_tool_proficiencies.size' => "Devi selezionare esattamente il numero di proficiencies della tua classe.",
+                'feats.size' => "Devi selezionare " . $number_of_feats . " feat",
+                'feats.required' => "Devi selezionare i feat"
             ]
         );
 
@@ -197,20 +207,27 @@ class CharacterController extends Controller
         $character->inventory = $data['inventory'] ?? null;
 
         if ($request->hasFile('image')) {
-            if($character->image){
+            if ($character->image) {
                 Storage::delete($character->image);
             }
             $img_path = Storage::putFile('characters', $request->file('image'));
             $character->image = $img_path;
         }
-        $proficiencies = array_merge($data['profession_proficiencies'], $data['background_proficiencies']);
+
+        $proficiencies = array_merge($data['profession_skill_proficiencies'], $data['background_proficiencies']);
+        if ($request->has('profession_tool_proficiencies')) {
+            $proficiencies = array_merge($proficiencies, $data['profession_tool_proficiencies']);
+        }
         $character->update();
 
         $character->proficiencies()->sync($proficiencies);
 
         $background_feat = Background::find($data['background_id'])->feat->id;
 
-        $feats = $data['feats'];
+
+        if ($request->has('feats')) {
+            $feats = $data['feats'];
+        }
         $feats[] = $background_feat;
 
         $character->feats()->sync($feats);

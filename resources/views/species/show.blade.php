@@ -18,7 +18,7 @@
                         @foreach ($species->features as $feature)
                             <li><a class="feature-title" href={{ route('features.show', $feature)}}>{{ $feature->name }}</a></li>
                             <p class="feature-description">
-                                {{ $feature->description }}
+                                {!! nl2br($feature->description) !!}
                             </p>
                         @endforeach
                     </ul>

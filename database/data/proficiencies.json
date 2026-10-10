@@ -1,0 +1,436 @@
+[
+    {
+        "id":1,
+        "name":"Acrobatics",
+        "description":"Leaping, tumbling, balancing, and staying upright on narrow or unstable surfaces while moving with speed and precision.",
+        "ability_score":"Dexterity",
+        "type":"Skill"
+    },
+    {
+        "id":2,
+        "name":"Animal Handling",
+        "description":"Calming beasts, reading their moods, guiding mounts, and predicting how animals react to danger or commands.",
+        "ability_score":"Wisdom",
+        "type":"Skill"
+    },
+    {
+        "id":3,
+        "name":"Arcana",
+        "description":"Identifying magical effects, understanding spellcasting, interpreting mystical symbols, and recalling lore about the Weave and planar phenomena.",
+        "ability_score":"Intellect",
+        "type":"Skill"
+    },
+    {
+        "id":4,
+        "name":"Athletics",
+        "description":"Climbing, swimming, jumping, grappling, shoving, and overcoming physical obstacles with strength, speed, or endurance.",
+        "ability_score":"Strength",
+        "type":"Skill"
+    },
+    {
+        "id":5,
+        "name":"Deception",
+        "description":"Lying, bluffing, disguising your true intentions, and misleading others through falsehoods, charm, or misdirection.",
+        "ability_score":"Charisma",
+        "type":"Skill"
+    },
+    {
+        "id":6,
+        "name":"History",
+        "description":"Recalling the deeds of rulers, wars, cultures, magical artifacts, and ancient events from the distant past.",
+        "ability_score":"Intellect",
+        "type":"Skill"
+    },
+    {
+        "id":7,
+        "name":"Insight",
+        "description":"Reading body language, sensing lies, judging a creature's motives, and determining whether someone is being honest or deceitful.",
+        "ability_score":"Wisdom",
+        "type":"Skill"
+    },
+    {
+        "id":8,
+        "name":"Intimidation",
+        "description":"Using a threatening presence, harsh words, or physical menace to frighten, coerce, or cow a creature into compliance.",
+        "ability_score":"Charisma",
+        "type":"Skill"
+    },
+    {
+        "id":9,
+        "name":"Investigation",
+        "description":"Searching for clues, examining objects for hidden details, noticing patterns, and analyzing a scene for signs of danger or deceit.",
+        "ability_score":"Intellect",
+        "type":"Skill"
+    },
+    {
+        "id":10,
+        "name":"Medicine",
+        "description":"Treating wounds, diagnosing illness, stabilizing dying creatures, and understanding how injuries and poisons affect the body.",
+        "ability_score":"Wisdom",
+        "type":"Skill"
+    },
+    {
+        "id":11,
+        "name":"Nature",
+        "description":"Understanding the behavior of plants, animals, weather, terrain, and natural environments across the wilderness.",
+        "ability_score":"Intellect",
+        "type":"Skill"
+    },
+    {
+        "id":12,
+        "name":"Perception",
+        "description":"Noticing movement, sounds, hidden objects, distant threats, and subtle clues in the environment before others do.",
+        "ability_score":"Wisdom",
+        "type":"Skill"
+    },
+    {
+        "id":13,
+        "name":"Performance",
+        "description":"Entertaining an audience through music, dance, acting, poetry, and other artistic expression.",
+        "ability_score":"Charisma",
+        "type":"Skill"
+    },
+    {
+        "id":14,
+        "name":"Persuasion",
+        "description":"Influencing others through charm, diplomacy, good judgment, and calm argument to gain cooperation or goodwill.",
+        "ability_score":"Charisma",
+        "type":"Skill"
+    },
+    {
+        "id":15,
+        "name":"Religion",
+        "description":"Understanding gods, holy symbols, sacred rites, faith traditions, and the history of divine magic and the undead.",
+        "ability_score":"Intellect",
+        "type":"Skill"
+    },
+    {
+        "id":16,
+        "name":"Sleight of Hand",
+        "description":"Quick, precise manipulation of objects, pickpocketing, concealment, and performing fine motor tasks while under pressure.",
+        "ability_score":"Dexterity",
+        "type":"Skill"
+    },
+    {
+        "id":17,
+        "name":"Stealth",
+        "description":"Moving quietly, hiding from notice, staying unseen, and evading detection by enemies or bystanders.",
+        "ability_score":"Dexterity",
+        "type":"Skill"
+    },
+    {
+        "id":18,
+        "name":"Survival",
+        "description":"Tracking creatures, navigating the wilderness, finding shelter and food, and identifying hazards in harsh environments.",
+        "ability_score":"Wisdom",
+        "type":"Skill"
+    },
+    {
+        "id":19,
+        "name":"Alchemist's Supplies",
+        "description":"Creating acid, alchemist's fire, potions, smoke sticks, and neutralizers.",
+        "ability_score":"Intellect",
+        "type":"Tool"
+    },
+    {
+        "id":20,
+        "name":"Brewer's Supplies",
+        "description":"Brewing ale, evaluating the quality of alcohol, or drinking someone under the table.",
+        "ability_score":"Wisdom",
+        "type":"Tool"
+    },
+    {
+        "id":21,
+        "name":"Calligrapher's Supplies",
+        "description":"Writing beautiful text, creating maps, or forging official signatures.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":22,
+        "name":"Carpenter's Tool",
+        "description":"Building wooden structures, fortifying doors, and crafting basic wooden items.",
+        "ability_score":"Strength",
+        "type":"Tool"
+    },
+    {
+        "id":23,
+        "name":"Cartographer's Tool",
+        "description":"Designing maps, navigating unknown terrain, and reading old charts.",
+        "ability_score":"Intellect",
+        "type":"Tool"
+    },
+    {
+        "id":24,
+        "name":"Cobbler's Tool",
+        "description":"Repairing boots, modifying shoes to hide hidden compartments, and helping the party march longer without tiring.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":25,
+        "name":"Cook's Utensils",
+        "description":"Preparing meals, identifying poisoned food, and maximizing the party's health during a short rest.",
+        "ability_score":"Wisdom",
+        "type":"Tool"
+    },
+    {
+        "id":26,
+        "name":"Glassblower's Tool",
+        "description":"Crafting glass vials, window panes, mirrors, and delicate decorative art.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":27,
+        "name":"Jeweler's Tool",
+        "description":"Appraising gemstones, cutting jewelry, and spotting counterfeit valuables.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":28,
+        "name":"Leatherworker's Tool",
+        "description":"Crafting leather armor, repairing saddles, and skinning beasts safely.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":29,
+        "name":"Mason's Tool",
+        "description":"Analyzing stone walls for structural weak points, digging tunnels, and carving stone.",
+        "ability_score":"Strength",
+        "type":"Tool"
+    },
+    {
+        "id":30,
+        "name":"Painter's Supplies",
+        "description":"Painting portraits, visual art, or drawing realistic sketches of a target from memory.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":31,
+        "name":"Potter's Tool",
+        "description":"Crafting clay pots, tiles, bricks, and ceramic storage urns.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":32,
+        "name":"Smith's Tool",
+        "description":"Forging and repairing metal armor, weapons, shields, and locks.",
+        "ability_score":"Strength",
+        "type":"Tool"
+    },
+    {
+        "id":33,
+        "name":"Tinker's Tool",
+        "description":"Repairing general broken items, fixing minor machinery, and patching holes in equipment.",
+        "ability_score":"Intellect",
+        "type":"Tool"
+    },
+    {
+        "id":34,
+        "name":"Weaver's Tool",
+        "description":"Making clothes, repairing sails, crafting rope, and weaving tapestries.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":35,
+        "name":"Woodcarver's Tool",
+        "description":"Crafting arrows, wooden figurines, and carving designs into staffs or bows.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":36,
+        "name":"Dice Set",
+        "description":"Playing games of chance, gambling, or bluffing opponents out of their gold.",
+        "ability_score":"Intellect",
+        "type":"Tool"
+    },
+    {
+        "id":37,
+        "name":"Dragonchess Set",
+        "description":"Winning strategic, board-based games of military skill and wit.",
+        "ability_score":"Intellect",
+        "type":"Tool"
+    },
+    {
+        "id":38,
+        "name":"Playing Card Set",
+        "description":"Playing poker-style card games, performing card tricks, and bluffing.",
+        "ability_score":"Charisma",
+        "type":"Tool"
+    },
+    {
+        "id":39,
+        "name":"Three-Dragon Ante Set",
+        "description":"A specific, popular strategic card game played in taverns across the realms.",
+        "ability_score":"Intellect",
+        "type":"Tool"
+    },
+    {
+        "id":40,
+        "name":"Bagpipes",
+        "description":"Loud, wind-based instrument; great for stirring military marches or causing a distraction.",
+        "ability_score":"Charisma",
+        "type":"Musical Instrument"
+    },
+    {
+        "id":41,
+        "name":"Drum",
+        "description":"Percussion instrument; excellent for keeping a steady rhythm or sending signals over long distances.",
+        "ability_score":"Charisma",
+        "type":"Musical Instrument"
+    },
+    {
+        "id":42,
+        "name":"Dulcimer",
+        "description":"A stringed instrument played by striking the strings with small hammers.",
+        "ability_score":"Charisma",
+        "type":"Musical Instrument"
+    },
+    {
+        "id":43,
+        "name":"Flute",
+        "description":"A versatile, portable woodwind instrument capable of beautiful, quiet melodies.",
+        "ability_score":"Charisma",
+        "type":"Musical Instrument"
+    },
+    {
+        "id":44,
+        "name":"Horn",
+        "description":"A loud, brass or animal-horn instrument used for announcements or battle signals.",
+        "ability_score":"Charisma",
+        "type":"Musical Instrument"
+    },
+    {
+        "id":45,
+        "name":"Lute",
+        "description":"The classic, pear-shaped stringed instrument favored by most traveling bards.",
+        "ability_score":"Charisma",
+        "type":"Musical Instrument"
+    },
+    {
+        "id":46,
+        "name":"Lyre",
+        "description":"A small, harp-like string instrument often associated with classical music and poetry.",
+        "ability_score":"Charisma",
+        "type":"Musical Instrument"
+    },
+    {
+        "id":47,
+        "name":"Pan Flute",
+        "description":"A series of short pipes bound together, common among folk musicians and fey creatures.",
+        "ability_score":"Charisma",
+        "type":"Musical Instrument"
+    },
+    {
+        "id":48,
+        "name":"Shawm",
+        "description":"A piercing, double-reed woodwind instrument that sounds similar to an oboe.",
+        "ability_score":"Charisma",
+        "type":"Musical Instrument"
+    },
+    {
+        "id":49,
+        "name":"Viol",
+        "description":"A stringed instrument played with a bow, closely resembling a modern cello or viola.",
+        "ability_score":"Charisma",
+        "type":"Musical Instrument"
+    },
+    {
+        "id":50,
+        "name":"Disguise Kit",
+        "description":"Using cosmetics, hair dye, and prosthetics to completely alter your physical appearance.",
+        "ability_score":"Charisma",
+        "type":"Tool"
+    },
+    {
+        "id":51,
+        "name":"Forgery Kit",
+        "description":"Mimicking handwriting, replicating wax seals, and faking official documents.",
+        "ability_score":"Intellect",
+        "type":"Tool"
+    },
+    {
+        "id":52,
+        "name":"Herbalism Kit",
+        "description":"Identifying medicinal flora, gathering wild plants, and crafting Potions of Healing.",
+        "ability_score":"Intellect",
+        "type":"Tool"
+    },
+    {
+        "id":53,
+        "name":"Navigator's Tool",
+        "description":"Plotting ship courses, calculating latitude using stars, and preventing getting lost at sea.",
+        "ability_score":"Intellect",
+        "type":"Tool"
+    },
+    {
+        "id":54,
+        "name":"Poisoner's Kit",
+        "description":"Extracting toxic venom from creatures, handling dangerous chemicals, and crafting lethal poisons.",
+        "ability_score":"Intellect",
+        "type":"Tool"
+    },
+    {
+        "id":55,
+        "name":"Thieves' Tool",
+        "description":"Picking physical locks, disabling mechanical traps, and opening chests safely.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":56,
+        "name":"Vehicles (Land)",
+        "description":"Driving horse-drawn carriages, carts, chariots, and wagon trains.",
+        "ability_score":"Dexterity",
+        "type":"Tool"
+    },
+    {
+        "id":57,
+        "name":"Vehicles (Water)",
+        "description":"Steering rowboats, sailing ships, warships, and navigating water currents safely.",
+        "ability_score":"Wisdom",
+        "type":"Tool"
+    },
+    {
+        "id":58,
+        "name":"Simple Weapons",
+        "description":"You gain proficiency in simple weapons.",
+        "ability_score":"",
+        "type":"Weapon"
+    },
+    {
+        "id":59,
+        "name":"Martial Weapons",
+        "description":"You gain proficiency in martial weapons.",
+        "ability_score":"",
+        "type":"Weapon"
+    },
+    {
+        "id":60,
+        "name":"Martial Weapons (Light)",
+        "description":"You gain proficiency in martial weapons with the Light property.",
+        "ability_score":"",
+        "type":"Weapon"
+    },
+    {
+        "id":61,
+        "name":"Martial Weapons (Finesse or Light)",
+        "description":"You gain proficiency in martial weapons with the Finesse or Light property.",
+        "ability_score":"",
+        "type":"Weapon"
+    },
+    {
+        "id":62,
+        "name":"Firearms",
+        "description":"You gain proficiency in firearms (pistols and muskets).",
+        "ability_score":"",
+        "type":"Weapon"
+    }
+]

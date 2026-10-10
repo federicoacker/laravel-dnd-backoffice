@@ -81,7 +81,7 @@
                 <h3 class="text-center">Seleziona {{ $profession->number_of_proficiencies }} proficiencies da questa lista:
                 </h3>
                 <ul class="character-create-proficiencies">
-                    @foreach($profession->proficiencies()->orderBy('type')->get() as $profession_proficiency)
+                    @foreach($profession->proficiencies()->where("type", "NOT LIKE", "Weapon")->orderBy('type')->get() as $profession_proficiency)
                         <li>
                             <input {{ $background->proficiencies->contains($profession_proficiency->id) ? "checked disabled" : ($character->proficiencies->contains($profession_proficiency->id) ? "checked" : "") }} type="checkbox" id="profession_proficiency_{{$profession_proficiency->id}}"
                                 name="profession_proficiencies[]" value="{{ $profession_proficiency->id }}">

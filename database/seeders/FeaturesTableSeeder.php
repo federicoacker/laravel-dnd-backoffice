@@ -13,15 +13,14 @@ class FeaturesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $newFeature = new Feature();
-        $newFeature->name = fake()->word();
-        $newFeature->description = fake()->paragraph();
-        $newFeature->type = "Species";
-        $newFeature->save();
-        $newFeature = new Feature();
-        $newFeature->name = fake()->word();
-        $newFeature->description = fake()->paragraph();
-        $newFeature->type = "Profession";
-        $newFeature->save();
+        $json_file = file_get_contents(database_path('data/features.json'));
+        $features = json_decode($json_file, true);
+        foreach ($features as $feature) {
+            Feature::create([
+                'name' => $feature['name'],
+                'description' =>$feature['description'],
+                'type' => $feature['type']
+            ]);
+        }
     }
 }

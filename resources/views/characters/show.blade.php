@@ -42,7 +42,8 @@
                 <section class="row row-cols-1 row-cols-xl-2 header-information">
                     <div class="col d-flex align-items-center justify-content-center">
                         @if($character->image)
-                            <img src="{{ asset('storage/'.$character->image) }}" alt="Immagine {{ $character->name }}" class="character-image mb-2">
+                            <img src="{{ asset('storage/' . $character->image) }}" alt="Immagine {{ $character->name }}"
+                                class="character-image mb-2">
                         @else
                             <img src="{{ asset('storage/characters/placeholder.svg') }}" alt="Immagine Placeholder"
                                 class="character-image mb-2">
@@ -107,48 +108,54 @@
                 </div>
                 <hr>
                 <section class="character-proficiencies">
-                    <div class="row row-cols-1 row-cols-lg-3 my-4">
+                    <div class="row row-cols-1 row-cols-lg-2 my-4">
                         <div class="col">
-                            <h4>Skills:</h4>
-                            <div class="d-flex flex-column">
-                                @foreach ($skill_proficiencies as $skill_proficiency)
-                                    <p
-                                        class="mb-0 text-capitalize {{ $character->proficiencies->contains($skill_proficiency->id) ? "proficient" : "not-proficient" }}">
-                                        <a href="{{ route('proficiencies.show', $skill_proficiency) }}">
-                                            {{ $skill_proficiency->name }} ({{ $skill_proficiency->ability_score }})
-                                            {{ $character->proficiencies->contains($skill_proficiency->id) ? "+" . $matching_scores_to_mods[$skill_proficiency->ability_score] + $proficiency_bonus : $matching_scores_to_mods[$skill_proficiency->ability_score] }}
-                                        </a>
-                                    </p>
-                                @endforeach
+
+                            <div class="d-flex gap-4 justify-content-between">
+                                <div class="skills">
+                                    <h4>Skills:</h4>
+                                    <div class="d-flex flex-column">
+                                        @foreach ($skill_proficiencies as $skill_proficiency)
+                                            <p
+                                                class="mb-0 text-capitalize {{ $character->proficiencies->contains($skill_proficiency->id) ? "proficient" : "not-proficient" }}">
+                                                <a href="{{ route('proficiencies.show', $skill_proficiency) }}">
+                                                    {{ $skill_proficiency->name }} ({{ $skill_proficiency->ability_score }})
+                                                    {{ $character->proficiencies->contains($skill_proficiency->id) ? "+" . $matching_scores_to_mods[$skill_proficiency->ability_score] + $proficiency_bonus : $matching_scores_to_mods[$skill_proficiency->ability_score] }}
+                                                </a>
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="tools">
+                                    <h4>Tools:</h4>
+                                    <div class="d-flex flex-column">
+                                        @foreach ($character->proficiencies()->where("type","NOT LIKE", "Skill", "AND", "type", "NOT LIKE", "Weapon")->get() as $tool_proficiency)
+                                            <p
+                                                class="mb-0 text-capitalize {{ $character->proficiencies->contains($tool_proficiency->id) ? "proficient" : "not-proficient" }}">
+                                                <a href="{{ route('proficiencies.show', $tool_proficiency) }}">
+                                                    {{ $tool_proficiency->name }} ({{ $tool_proficiency->ability_score }})
+                                                    {{ $character->proficiencies->contains($tool_proficiency->id) ? "+" . $matching_scores_to_mods[$tool_proficiency->ability_score] + $proficiency_bonus : $matching_scores_to_mods[$tool_proficiency->ability_score] }}
+                                                </a>
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="weapons">
+                                    <h4>Weapons:</h4>
+                                    @foreach ($character->profession->proficiencies()->where('type', 'LIKE', 'Weapon')->get() as $weapon_proficiency)
+                                        <p class="mb-0 text-capitalize"><a
+                                                href="{{ route('proficiencies.show', $weapon_proficiency) }}">{{ $weapon_proficiency->name }}</a>
+                                        </p>
+                                    @endforeach
+                                </div>
                             </div>
                             <hr>
-                            <h4>Tools:</h4>
-                            <div class="d-flex flex-column">
-                                @foreach ($tool_proficiencies as $tool_proficiency)
-                                    <p
-                                        class="mb-0 text-capitalize {{ $character->proficiencies->contains($tool_proficiency->id) ? "proficient" : "not-proficient" }}">
-                                        <a href="{{ route('proficiencies.show', $tool_proficiency) }}">
-                                            {{ $tool_proficiency->name }} ({{ $tool_proficiency->ability_score }})
-                                            {{ $character->proficiencies->contains($tool_proficiency->id) ? "+" . $matching_scores_to_mods[$tool_proficiency->ability_score] + $proficiency_bonus : $matching_scores_to_mods[$tool_proficiency->ability_score] }}
-                                        </a>
-                                    </p>
-                                @endforeach
-                            </div>
-                            <hr>
-                            <h4>Weapons:</h4>
-                            @foreach ($character->proficiencies()->where('type', 'LIKE', 'Weapon')->get() as $weapon_proficiency)
-                                <p class="mb-0 text-capitalize"><a
-                                        href="{{ route('proficiencies.show', $weapon_proficiency) }}">{{ $weapon_proficiency->name }}</a>
-                                </p>
-                            @endforeach
-                            <hr>
+
                         </div>
                         <div class="col">
                             <h4>Equipaggiamento:</h4>
                             <p class="mb-0">{{ $character->inventory }}</p>
                             <hr>
-                        </div>
-                        <div class="col">
                             <h4>Features:</h4>
                             <section class="class-features mb-2">
                                 <h5>Di Classe:</h5>
@@ -156,7 +163,6 @@
                                     <h5 class="mb-0 text-capitalize"><a
                                             href="{{ route('features.show', $class_feature) }}">{{ $class_feature->name }}</a>
                                     </h5>
-                                    <p class="mb-0">{{ $class_feature->description }}</p>
                                 @endforeach
                             </section>
                             <section class="species-feature mb-2">
@@ -165,10 +171,12 @@
                                     <h5 class="mb-0 text-capitalize"><a
                                             href="{{ route('features.show', $species_feature) }}">{{ $species_feature->name }}</a>
                                     </h5>
-                                    <p class="mb-0">{{ $species_feature->description }}</p>
                                 @endforeach
+                                <hr>
                             </section>
+
                         </div>
+
                     </div>
                 </section>
                 @if(count($character->feats) > 0)
@@ -199,12 +207,12 @@
                                         <x-spell-card :selfSpell="$spell">
                                             <x-slot:type>show</x-slot:type>
                                             <x-slot:name>{{ $spell->name }}</x-slot>
-                                            <x-slot:level>{{ $spell->level }}</x-slot>
-                                            <x-slot:casting_time>{{ $spell->casting_time }}</x-slot>
-                                            <x-slot:range>{{ $spell->range }}</x-slot>
-                                            <x-slot:components>{{ $spell->components }}</x-slot>
-                                            <x-slot:duration>{{ $spell->duration }}</x-slot>
-                                            <x-slot:description>{{ $spell->description }}</x-slot>
+                                                <x-slot:level>{{ $spell->level }}</x-slot>
+                                                    <x-slot:casting_time>{{ $spell->casting_time }}</x-slot>
+                                                        <x-slot:range>{{ $spell->range }}</x-slot>
+                                                            <x-slot:components>{{ $spell->components }}</x-slot>
+                                                                <x-slot:duration>{{ $spell->duration }}</x-slot>
+                                                                    <x-slot:description>{{ $spell->description }}</x-slot>
                                         </x-spell-card>
                                     </div>
                                 @endforeach

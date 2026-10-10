@@ -13,24 +13,31 @@ class ProfessionsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $abilities = [
-            "Strength",
-            "Dexterity",
-            "Constitution",
-            "Intellect",
-            "Wisdom",
-            "Charisma"
-        ];
+        $file = file_get_contents(database_path('data/professions.json'));
+        $professions = json_decode($file,true);
+        
 
-        $newProfession = new Profession();
-        $newProfession->name = fake()->word();
-        $newProfession->primary_ability = $abilities[array_rand($abilities)];
-        $newProfession->hit_points_die = "1d8";
-        $newProfession->hit_points_at_level_1 = "8 + constitution modifier";
-        $newProfession->armor_training = fake()->paragraph();
-        $newProfession->starting_equipment = fake()->paragraph();
-        $newProfession->description = fake()->paragraph(12);
-        $newProfession->number_of_proficiencies = rand(2,4);
-        $newProfession->save();
+        foreach($professions as $profession){
+            $newProfession = Profession::create([
+                "name"=>$profession['name'],
+                "primary_ability"=>$profession['primary_ability'],
+                "hit_points_die"=>$profession['hit_points_die'],
+                "hit_points_at_level_1"=>$profession['hit_points_at_level_1'],
+                "armor_training"=>$profession['armor_training'],
+                "starting_equipment"=>$profession['starting_equipment'],
+                "saving_throws"=>$profession['saving_throws'],
+                "description"=>$profession['description'],
+                "number_of_skill_proficiencies"=>$profession['number_of_skill_proficiencies'],
+                "number_of_tool_proficiencies"=>$profession['number_of_tool_proficiencies'],
+                "type_of_tool_proficiencies"=>$profession['type_of_tool_proficiencies'],
+                "image"=>$profession['image'],            
+                ]);
+            $newProfession->proficiencies()->attach($profession['proficiencies']);
+            $newProfession->features()->attach($profession['features']);
+            if(array_key_exists('spells',$profession)){
+                $newProfession->spells()->attach($profession['spells']);
+            }
+
+        }
     }
 }

@@ -10,7 +10,7 @@
             <hr>
             <div class="container">
                 <div class="card-text">
-                    {{ $feature->description }}
+                    {!! nl2br($feature->description) !!}
                 </div>
             </div>
 

@@ -13,9 +13,15 @@ class SpeciesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $newSpecies = new Species();
-        $newSpecies->name = fake()->word();
-        $newSpecies->description = fake()->paragraph();
-        $newSpecies->save();
+        $file = file_get_contents(database_path('data/species.json'));
+        $species = json_decode($file, true);
+
+        foreach($species as $specie){
+            Species::create([
+                "name" => $specie['name'],
+                "description" => $specie['description'],
+                "image"=> $specie['image']
+            ]);
+        }
     }
 }

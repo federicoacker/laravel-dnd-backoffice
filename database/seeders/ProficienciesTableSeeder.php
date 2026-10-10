@@ -13,28 +13,16 @@ class ProficienciesTableSeeder extends Seeder
      */
     public function run(): void
     {   
-        $ability_scores = [
-            "Strength",
-            "Dexterity",
-            "Constitution",
-            "Intellect",
-            "Wisdom",
-            "Charisma"
-        ];
-        
-        $types = [
-            'Skill',
-            'Tool',
-            'Weapon'
-        ];
+        $file = file_get_contents(database_path('/data/proficiencies.json'));
+        $json = json_decode($file,true);
 
-        for($i = 0; $i<6; $i++){
-            $newProficiency = new Proficiency();
-            $newProficiency->name = fake()->word();
-            $newProficiency->description = fake()->paragraph();
-            $newProficiency->ability_score = $ability_scores[array_rand($ability_scores)];
-            $newProficiency->type = $types[array_rand($types)];
-            $newProficiency->save();
+        foreach($json as $proficiency){
+            Proficiency::create([
+                "name" => $proficiency['name'],
+                "description" => $proficiency['description'],
+                "ability_score" => $proficiency['ability_score'],
+                "type" => $proficiency['type']
+            ]);
         }
     }
 }
