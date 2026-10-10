@@ -163,8 +163,7 @@
                                 <input {{ $feat['id'] == $background->feat->id ? "checked disabled" : ""}} type="checkbox"
                                     id="feat_{{$feat['id']}}" name="feats[]" value="{{ $feat['id'] }}">
                                 <label class="form-label text-capitalize" for="feat_{{ $feat['id'] }}"><a
-                                        href="{{ route('feats.show', $feat['id']) }}">{{ $feat['name'] }}</a></label>
-                                <p class="card-text">{{ $feat['description'] }}</p>
+                                        href="{{ route('feats.show', $feat['id']) }}" target="_blank">{{ $feat['name'] }}</a></label>
                             </li>
 
                         @endforeach

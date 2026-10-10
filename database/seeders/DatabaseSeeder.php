@@ -23,13 +23,13 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
-            SpellsTableSeeder::class,
             ProficienciesTableSeeder::class,
             FeatsTableSeeder::class,
             BackgroundsTableSeeder::class,
             FeaturesTableSeeder::class,
             SpeciesTableSeeder::class,
             ProfessionsTableSeeder::class,
+            SpellsTableSeeder::class,
             FeatureSpeciesTableSeeder::class,
             BackgroundProficiencyTableSeeder::class,
             CharactersTableSeeder::class,
