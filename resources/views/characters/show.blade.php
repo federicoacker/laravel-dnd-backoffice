@@ -129,7 +129,7 @@
                                 <div class="tools">
                                     <h4>Tools:</h4>
                                     <div class="d-flex flex-column">
-                                        @foreach ($character->proficiencies()->where("type","NOT LIKE", "Skill", "AND", "type", "NOT LIKE", "Weapon")->get() as $tool_proficiency)
+                                        @foreach ($character->proficiencies()->whereNotLike('type','Skill')->whereNotLike('type','Weapon')->get() as $tool_proficiency)
                                             <p
                                                 class="mb-0 text-capitalize {{ $character->proficiencies->contains($tool_proficiency->id) ? "proficient" : "not-proficient" }}">
                                                 <a href="{{ route('proficiencies.show', $tool_proficiency) }}">

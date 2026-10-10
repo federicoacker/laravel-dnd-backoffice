@@ -19,7 +19,7 @@
         @if ($selfProfession->image)
             <hr>
             <img src="{{ asset('storage/' . $selfProfession->image) }}" alt="Immagine {{ $selfProfession->name }}"
-                class="card-img-top">
+                class="card-img-top class-card-img">
         @endif
         <hr>
         <a class="btn btn-primary" href="{{ route('classes.show', $selfProfession) }}">Visualizza</a>

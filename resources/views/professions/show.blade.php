@@ -18,12 +18,20 @@
                     <h5 class="card-subtitle">Competenza Armature: {{ $class->armor_training }}</h5>
                     <h5 class="card-subtitle">Competenze: </h5>
                     <ul class="profession-card-list">
-                        <h6 class="card-subtitle mb-2">Scegli {{ $class->number_of_proficiencies }} proficiencies tra:</h6>
-                        @foreach($proficiencies = $class->proficiencies()->where("type", "NOT LIKE", "Weapon")->orderBy("type")->get() as $proficiency)
+                        <h6 class="card-subtitle mb-2">Scegli {{ $class->number_of_skill_proficiencies }} proficiencies tra:</h6>
+                        @foreach($proficiencies = $class->proficiencies()->where("type", "LIKE", "Skill")->orderBy("type")->get() as $proficiency)
                             <li><a href="{{ route('proficiencies.show', $proficiency['id']) }}"
                                     class="text-capitalize">{{ $proficiency['type'] }}: {{ $proficiency['name'] }}
                                     ({{ $proficiency['ability_score'] }})</a></li>
                         @endforeach
+                        @if($class->number_of_tool_proficiencies > 0)
+                        <h6 class="card-subtitle mb-2">Scegli {{ $class->number_of_tool_proficiencies }} proficiencies tra:</h6>
+                        @foreach($proficiencies = $class->proficiencies()->whereNotLike('type', '%Skill%')->whereNotLike('type', '%Weapon%')->orderBy('type')->get() as $proficiency)
+                            <li><a href="{{ route('proficiencies.show', $proficiency['id']) }}"
+                                    class="text-capitalize">{{ $proficiency['type'] }}: {{ $proficiency['name'] }}
+                                    ({{ $proficiency['ability_score'] }})</a></li>
+                        @endforeach
+                        @endif
                     </ul>
                 </section>
                 <hr>

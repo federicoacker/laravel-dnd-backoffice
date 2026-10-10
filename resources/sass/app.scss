@@ -189,3 +189,10 @@
     flex-direction:column;
     gap:0.5rem;
 }
+
+.class-card-img{
+    height:500px;
+    aspect-ratio:auto;
+    object-fit:cover;
+    object-position:top;
+}
