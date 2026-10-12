@@ -64,25 +64,69 @@ class CharacterController extends Controller
     {
         $data = $request->all();
         $profession = Profession::find($request->input('profession_id'));
+        $validatedLevel = $request->validate(
+            [
+                'level' => ['required', 'integer', 'min:1', 'max:20'],
+            ],
+            [
+                'level.required' => "Devi selezionare il livello",
+                "level.integer" => "Il livello deve essere un numero intero",
+                "level.min" => "Il livello deve essere come minimo 1",
+                "level.max" => "Il livello può essere al massimo 20",
+            ]
+        );
         $number_of_feats = (int) floor($data['level'] / 4);
         $validated = $request->validate(
             [
                 'profession_id' => ['required'],
                 'name' => ['required', 'string'],
-                'level' => ['required', 'string'],
                 'profession_skill_proficiencies' => ['required', 'array', 'size:' . ($profession?->number_of_skill_proficiencies ?? 0)],
                 'profession_tool_proficiencies' => ['array', 'size:' . ($profession?->number_of_tool_proficiencies ?? 0)],
-                'feats' => $number_of_feats > 0 ? ['required', 'array', 'size:' . $number_of_feats] : ''
+                'feats' => $number_of_feats > 0 ? ['required', 'array', 'size:' . $number_of_feats] : '',
+                'strength' => ['required', 'integer', 'min:1', 'max:20'],
+                'dexterity' => ['required', 'integer', 'min:1', 'max:20'],
+                'constitution' => ['required', 'integer', 'min:1', 'max:20'],
+                'intellect' => ['required', 'integer', 'min:1', 'max:20'],
+                'wisdom' => ['required', 'integer', 'min:1', 'max:20'],
+                'charisma' => ['required', 'integer', 'min:1', 'max:20'],
             ],
             [
                 'profession_skill_proficiencies.required' => "Devi selezionare le proficiencies di classe.",
                 'profession_skill_proficiencies.size' => "Devi selezionare esattamente il numero di proficiencies della tua classe.",
+                'profession_tool_proficiencies.required' => "Devi selezionare le proficiencies di classe.",
                 'profession_tool_proficiencies.size' => "Devi selezionare esattamente il numero di proficiencies della tua classe.",
                 'feats.size' => "Devi selezionare " . $number_of_feats . " feat",
-                'feats.required' => "Devi selezionare i feat"
+                'feats.required' => "Devi selezionare i feat",
+                'strength.required' => "Devi selezionare la Strength",
+                "strength.integer" => "Strength deve essere un numero intero",
+                "strength.min" => "Strength deve essere come minimo 1",
+                "strength.max" => "Strength può essere al massimo 20",
+                'dexterity.required' => "Devi selezionare la Dexterity",
+                "dexterity.integer" => "Dexterity deve essere un numero intero",
+                "dexterity.min" => "Dexterity deve essere come minimo 1",
+                "dexterity.max" => "Dexterity può essere al massimo 20",
+                'constitution.required' => "Devi selezionare la Constitution",
+                "constitution.integer" => "Constitution deve essere un numero intero",
+                "constitution.min" => "Constitution deve essere come minimo 1",
+                "constitution.max" => "Constitution può essere al massimo 20",
+                'intellect.required' => "Devi selezionare L'Intellect",
+                "intellect.integer" => "Intellect deve essere un numero intero",
+                "intellect.min" => "Intellect deve essere come minimo 1",
+                "intellect.max" => "Intellect può essere al massimo 20",
+                'wisdom.required' => "Devi selezionare la Wisdom",
+                "wisdom.integer" => "Wisdom deve essere un numero intero",
+                "wisdom.min" => "Wisdom deve essere come minimo 1",
+                "wisdom.max" => "Wisdom può essere al massimo 20",
+                'charisma.required' => "Devi selezionare il Charisma",
+                "charisma.integer" => "Charisma deve essere un numero intero",
+                "charisma.min" => "Charisma deve essere come minimo 1",
+                "charisma.max" => "Charisma può essere al massimo 20"
             ]
         );
-        $proficiencies = array_merge($data['profession_skill_proficiencies'], $data['background_proficiencies']);
+        $proficiencies = $data['profession_skill_proficiencies'];
+        if ($request->has('background_proficiencies')) {
+            $proficiencies = array_merge($proficiencies, $data['background_proficiencies']);
+        }
         if ($request->has('profession_tool_proficiencies')) {
             $proficiencies = array_merge($proficiencies, $data['profession_tool_proficiencies']);
         }
@@ -111,13 +155,16 @@ class CharacterController extends Controller
 
         $newCharacter->proficiencies()->attach($proficiencies);
 
-        $background_feat = Background::find($data['background_id'])->feat->id;
-        if ($request->has('feats')) {
-            $feats = $data['feats'];
-        }
-        $feats[] = $background_feat;
+        $feats = $data['feats'] ?? [];
+        $backgroundFeatId = Background::find($data['background_id'])->feat?->id;
 
-        $newCharacter->feats()->attach($feats);
+        if ($backgroundFeatId !== null) {
+            $feats[] = $backgroundFeatId;
+        }
+
+        if (count($feats) > 0) {
+            $newCharacter->feats()->attach($feats);
+        }
 
         return redirect()->route('characters.show', $newCharacter)->with('success', 'Carattere creato con successo!');
     }
@@ -171,15 +218,33 @@ class CharacterController extends Controller
     {
         $data = $request->all();
         $profession = Profession::find($request->input('profession_id'));
+
+        $validatedLevel = $request->validate(
+            [
+                'level' => ['required', 'integer', 'min:1', 'max:20'],
+            ],
+            [
+                'level.required' => "Devi selezionare il livello",
+                "level.integer" => "Il livello deve essere un numero intero",
+                "level.min" => "Il livello deve essere come minimo 1",
+                "level.max" => "Il livello può essere al massimo 20",
+            ]
+        );
+
         $number_of_feats = (int) floor($data['level'] / 4);
         $validated = $request->validate(
             [
                 'profession_id' => ['required'],
                 'name' => ['required', 'string'],
-                'level' => ['required', 'string'],
                 'profession_skill_proficiencies' => ['required', 'array', 'size:' . ($profession?->number_of_skill_proficiencies ?? 0)],
                 'profession_tool_proficiencies' => ['array', 'size:' . ($profession?->number_of_tool_proficiencies ?? 0)],
-                'feats' => $number_of_feats > 0 ? ['required', 'array', 'size:' . $number_of_feats] : ''
+                'feats' => $number_of_feats > 0 ? ['required', 'array', 'size:' . $number_of_feats] : '',
+                'strength' => ['required', 'integer', 'min:1', 'max:20'],
+                'dexterity' => ['required', 'integer', 'min:1', 'max:20'],
+                'constitution' => ['required', 'integer', 'min:1', 'max:20'],
+                'intellect' => ['required', 'integer', 'min:1', 'max:20'],
+                'wisdom' => ['required', 'integer', 'min:1', 'max:20'],
+                'charisma' => ['required', 'integer', 'min:1', 'max:20'],
             ],
             [
                 'profession_skill_proficiencies.required' => "Devi selezionare le proficiencies di classe.",
@@ -187,7 +252,31 @@ class CharacterController extends Controller
                 'profession_tool_proficiencies.required' => "Devi selezionare le proficiencies di classe.",
                 'profession_tool_proficiencies.size' => "Devi selezionare esattamente il numero di proficiencies della tua classe.",
                 'feats.size' => "Devi selezionare " . $number_of_feats . " feat",
-                'feats.required' => "Devi selezionare i feat"
+                'feats.required' => "Devi selezionare i feat",
+                'strength.required' => "Devi selezionare la Strength",
+                "strength.integer" => "Strength deve essere un numero intero",
+                "strength.min" => "Strength deve essere come minimo 1",
+                "strength.max" => "Strength può essere al massimo 20",
+                'dexterity.required' => "Devi selezionare la Dexterity",
+                "dexterity.integer" => "Dexterity deve essere un numero intero",
+                "dexterity.min" => "Dexterity deve essere come minimo 1",
+                "dexterity.max" => "Dexterity può essere al massimo 20",
+                'constitution.required' => "Devi selezionare la Constitution",
+                "constitution.integer" => "Constitution deve essere un numero intero",
+                "constitution.min" => "Constitution deve essere come minimo 1",
+                "constitution.max" => "Constitution può essere al massimo 20",
+                'intellect.required' => "Devi selezionare L'Intellect",
+                "intellect.integer" => "Intellect deve essere un numero intero",
+                "intellect.min" => "Intellect deve essere come minimo 1",
+                "intellect.max" => "Intellect può essere al massimo 20",
+                'wisdom.required' => "Devi selezionare la Wisdom",
+                "wisdom.integer" => "Wisdom deve essere un numero intero",
+                "wisdom.min" => "Wisdom deve essere come minimo 1",
+                "wisdom.max" => "Wisdom può essere al massimo 20",
+                'charisma.required' => "Devi selezionare il Charisma",
+                "charisma.integer" => "Charisma deve essere un numero intero",
+                "charisma.min" => "Charisma deve essere come minimo 1",
+                "charisma.max" => "Charisma può essere al massimo 20"
             ]
         );
 
@@ -214,23 +303,27 @@ class CharacterController extends Controller
             $character->image = $img_path;
         }
 
-        $proficiencies = array_merge($data['profession_skill_proficiencies'], $data['background_proficiencies']);
+        $proficiencies = $data['profession_skill_proficiencies'];
+        if ($request->has('background_proficiencies')) {
+            $proficiencies = array_merge($proficiencies, $data['background_proficiencies']);
+        }
         if ($request->has('profession_tool_proficiencies')) {
             $proficiencies = array_merge($proficiencies, $data['profession_tool_proficiencies']);
         }
+
         $character->update();
 
         $character->proficiencies()->sync($proficiencies);
 
-        $background_feat = Background::find($data['background_id'])->feat->id;
+        $feats = $data['feats'] ?? [];
+        $backgroundFeatId = Background::find($data['background_id'])->feat?->id;
 
-
-        if ($request->has('feats')) {
-            $feats = $data['feats'];
+        if ($backgroundFeatId !== null) {
+            $feats[] = $backgroundFeatId;
         }
-        $feats[] = $background_feat;
 
         $character->feats()->sync($feats);
+
 
         return redirect()->route('characters.show', $character)->with('success', 'Carattere creato con successo!');
     }

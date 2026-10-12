@@ -85,12 +85,14 @@
                     </section>
                 </section>
                 <div class="row row-cols-2 row-cols-lg-4">
+                    @if($character->profession)
                     <div class="col profession">
                         <h5 class="text-center">Classe:</h5>
                         <h5 class="text-center text-capitalize"><a
                                 href="{{ route('classes.show', $character->profession) }}">{{ $character->profession->name }}</a>
                         </h5>
                     </div>
+                    @endif
                     <div class="col level">
                         <h5 class="text-center">Livello:</h5>
                         <h5 class="text-center text-capitalize">{{ $character->level }}</h5>
@@ -101,9 +103,13 @@
                     </div>
                     <div class=" col background">
                         <h5 class="text-center">Background:</h5>
-                        <h5 class="text-center text-capitalize"><a
-                                href="{{ route('backgrounds.show', $character->background) }}">{{$character->background->name}}</a>
-                        </h5>
+                        @if($character->background)
+                            <h5 class="text-center text-capitalize">
+                                <a href="{{ route('backgrounds.show', $character->background) }}">{{ $character->background->name }}</a>
+                            </h5>
+                        @else
+                            <h5 class="text-center">Nessun background selezionato</h5>
+                        @endif
                     </div>
                 </div>
                 <hr>
@@ -140,17 +146,20 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="weapons">
-                                    <h4>Weapons:</h4>
-                                    @foreach ($character->profession->proficiencies()->where('type', 'LIKE', 'Weapon')->get() as $weapon_proficiency)
-                                        <p class="mb-0 text-capitalize"><a
-                                                href="{{ route('proficiencies.show', $weapon_proficiency) }}">{{ $weapon_proficiency->name }}</a>
-                                        </p>
-                                    @endforeach
-                                </div>
+                                @if($character->profession)
+                                    <div class="weapons">
+                                        <h4>Weapons:</h4>
+                                        @foreach ($character->profession->proficiencies()->where('type', 'LIKE', 'Weapon')->get() as $weapon_proficiency)
+                                            <p class="mb-0 text-capitalize"><a
+                                                    href="{{ route('proficiencies.show', $weapon_proficiency) }}">{{ $weapon_proficiency->name }}</a>
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
                             <hr>
 
+                            @if($character->profession)
                             <div class="saving-throws">
                                 <h5 class="card-subtitle">Tiri Salvezza:</h5>
                                 @php
@@ -162,12 +171,14 @@
                                     @endforeach
                                 </ul>
                             </div>
+                            @endif
                         </div>
                         <div class="col">
                             <h4>Equipaggiamento:</h4>
                             <p class="mb-0">{{ $character->inventory }}</p>
                             <hr>
                             <h4>Features:</h4>
+                            @if($character->profession)
                             <section class="class-features mb-2">
                                 <h5>Di Classe:</h5>
                                 @foreach ($character->profession->features as $class_feature)
@@ -176,6 +187,8 @@
                                     </h5>
                                 @endforeach
                             </section>
+                            @endif
+                            @if($character->species)
                             <section class="species-feature mb-2">
                                 <h5>Razziali:</h5>
                                 @foreach ($character->species->features as $species_feature)
@@ -185,6 +198,7 @@
                                 @endforeach
                                 <hr>
                             </section>
+                            @endif
 
                         </div>
 
@@ -208,10 +222,11 @@
                     </section>
                     <hr>
                 @endif
-                @if (count($character->profession->spells) > 0)
+                @if ($character->profession && $character->profession->spells->isNotEmpty())
                     <section class="spells">
                         <h4 class="text-center">Spells:</h4>
-                        <div class="container my-3">
+                        <button type="button" class="btn btn-primary w-100 mb-2" data-bs-toggle="collapse" data-bs-target="#spell-collapse">Mostra Spell</button>
+                        <div class="container my-3 collapse" id="spell-collapse">
                             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
                                 @foreach($character->profession->spells()->orderBy('level')->get() as $spell)
                                     <div class="col">

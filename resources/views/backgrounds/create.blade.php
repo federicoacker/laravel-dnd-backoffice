@@ -60,6 +60,9 @@
                         </li>
                     @endforeach
                 </ul>
+                @error('proficiencies')
+                    <div style="color: red;">{{ $message }}</div>
+                @enderror
             </div>
             <label class="form-label" for="equipment">Equipaggiamento</label>
             <textarea required class="form-control" name="equipment" id="equipment"></textarea>

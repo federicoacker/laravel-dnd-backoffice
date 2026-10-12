@@ -21,8 +21,8 @@
                 Durata: {{ $spell->duration }}
             </div>
             <hr>
-            <div class="card-text">
-                {{ $spell->description }}
+            <div class="card-text spell-description">
+                {!! nl2br($spell->description) !!}
             </div>
         </div>
 

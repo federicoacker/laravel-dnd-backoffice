@@ -18,13 +18,30 @@
                 class="card-img-top">
         @endif
         <section class="character-info d-flex flex-column gap-2">
-            <h5 class="card-subtitle">Classe: <span
-                    class="text-capitalize">{{ $selfCharacter->profession->name }}</span>
+            <h5 class="card-subtitle">Classe:
+                @if($selfCharacter->profession)
+                    <span class="text-capitalize">{{ $selfCharacter->profession->name }}
+                    </span>
+                @else
+                    Nessuna classe selezionata
+                @endif
             </h5>
-            <h5 class="card-subtitle">Razza: <span class="text-capitalize">{{ $selfCharacter->species->name }}</span>
+            <h5 class="card-subtitle">Razza:
+                @if($selfCharacter->species)
+                    <span class="text-capitalize">
+                        {{ $selfCharacter->species->name }}
+                    </span>
+                @else
+                    Nessuna razza selezionata
+                @endif
             </h5>
-            <h5 class="card-subtitle">Background: <span
-                    class="text-capitalize">{{ $selfCharacter->background->name }}</span>
+            <h5 class="card-subtitle">Background:
+                @if($selfCharacter->background)
+                    <span class="text-capitalize">{{ $selfCharacter->background->name }}
+                    </span>
+                @else
+                    Nessun background selezionato
+                @endif
             </h5>
         </section>
         <a class="btn btn-primary" href="{{ route('characters.show', $selfCharacter) }}">Visualizza</a>
