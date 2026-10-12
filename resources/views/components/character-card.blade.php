@@ -15,7 +15,7 @@
         <hr>
         @if($selfCharacter->image)
             <img src="{{ asset('storage/' . $selfCharacter->image) }}" alt="Immagine {{ $selfCharacter->name }}"
-                class="card-img-top">
+                class="card-img-top mb-2">
         @endif
         <section class="character-info d-flex flex-column gap-2">
             <h5 class="card-subtitle">Classe: <span
