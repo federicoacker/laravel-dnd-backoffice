@@ -7,7 +7,7 @@
             <h1 class="text-center text-capitalize">{{ $class->name }}</h1>
             <hr>
             <div class="container">
-                @if($class->image)
+                @if($class->image && Storage::exists($class->image))
                     <img class="jumbo-image-show" src="{{ asset('storage/' . $class->image) }}" alt="immagine {{$class->name}}">
                     <hr>
                 @endif
@@ -15,21 +15,32 @@
                     <h5 class="card-subtitle">Abilità Primaria: {{ $class->primary_ability }}</h5>
                     <h5 class="card-subtitle">Dado Vita: {{ $class->hit_points_die }}</h5>
                     <h5 class="card-subtitle">Punti Vita a Livello 1: {{ $class->hit_points_at_level_1 }}</h5>
-                    <h5 class="card-subtitle">Competenza Armature: {{ $class->armor_training }}</h5>
+                    <h5 class="card-subtitle">Tiri salvezza: {{ $class->saving_throws }}</h5>
+                    <h5 class="card-subtitle">Competenza Armature: {{ $class->armor_training ?? "Nessuna" }}</h5>
                     <h5 class="card-subtitle">Competenze: </h5>
                     <ul class="profession-card-list">
-                        <h6 class="card-subtitle mb-2">Scegli {{ $class->number_of_proficiencies }} proficiencies tra:</h6>
-                        @php
-                            $proficiencies = $class->proficiencies()->get()->toArray();
-                            usort($proficiencies, function ($a, $b) {
-                                return strcmp($a['type'], $b['type']);
-                            });
-                        @endphp
-                        @foreach($proficiencies as $proficiency)
+                        <h6 class="card-subtitle mb-2">Competenze armi:
+                        </h6>
+                        @foreach($class->proficiencies()->where("type", "LIKE", "Weapon")->orderBy('name')->get() as $proficiency)
+                            <li><a href="{{ route('proficiencies.show', $proficiency['id']) }}"
+                                    class="text-capitalize">{{ $proficiency['type'] }}: {{ $proficiency['name'] }}</a></li>
+                        @endforeach
+                        <h6 class="card-subtitle mb-2">Scegli {{ $class->number_of_skill_proficiencies }} proficiencies tra:
+                        </h6>
+                        @foreach($class->proficiencies()->where("type", "LIKE", "Skill")->orderBy("type")->get() as $proficiency)
                             <li><a href="{{ route('proficiencies.show', $proficiency['id']) }}"
                                     class="text-capitalize">{{ $proficiency['type'] }}: {{ $proficiency['name'] }}
                                     ({{ $proficiency['ability_score'] }})</a></li>
                         @endforeach
+                        @if($class->number_of_tool_proficiencies > 0)
+                            <h6 class="card-subtitle mb-2">Scegli {{ $class->number_of_tool_proficiencies }} proficiencies tra:
+                            </h6>
+                            @foreach($proficiencies = $class->proficiencies()->whereNotLike('type', '%Skill%')->whereNotLike('type', '%Weapon%')->orderBy('type')->get() as $proficiency)
+                                <li><a href="{{ route('proficiencies.show', $proficiency['id']) }}"
+                                        class="text-capitalize">{{ $proficiency['type'] }}: {{ $proficiency['name'] }}
+                                        ({{ $proficiency['ability_score'] }})</a></li>
+                            @endforeach
+                        @endif
                     </ul>
                 </section>
                 <hr>
@@ -47,29 +58,32 @@
                     <h5 class="card-subtitle">Features di classe:</h5>
                     <ul class="profession-card-list">
                         @foreach($class->features as $feature)
-                            <li>
+                            <li class="feature-description feature-text">
                                 <a href="{{ route('features.show', $feature) }}">{{ $feature->name }}</a>
-                                <p class="card-text">{{ $feature->description }}</p>
+                                <p class="card-text mb-2 ">{!! nl2br($feature->description) !!}</p>
                             </li>
                         @endforeach
                     </ul>
                 </section>
                 <hr>
-                @if(count($class->spells)>0)
-                    <section class="spell-list">
-                        <h5 class="card-subtitle">Spells:</h5>
-                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
-                            @foreach($class->spells as $spell)
+                @if(count($class->spells) > 0)
+                    <button class="btn btn-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#spell-list"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Apri la Spell List
+                    </button>
+                    <section class="spell-list collapse" id="spell-list">
+                        <div class="row row-cols-1 row-cols-lg-2 g-2">
+                            @foreach($class->spells()->orderBy('level')->get() as $spell)
                                 <div class="col">
                                     <x-spell-card :selfSpell="$spell">
                                         <x-slot:type>edit</x-slot:type>
                                         <x-slot:name>{{ $spell->name }}</x-slot>
-                                        <x-slot:level>{{ $spell->level }}</x-slot>
-                                        <x-slot:casting_time>{{ $spell->casting_time }}</x-slot>
-                                        <x-slot:range>{{ $spell->range }}</x-slot>
-                                        <x-slot:components>{{ $spell->components }}</x-slot>
-                                        <x-slot:duration>{{ $spell->duration }}</x-slot>
-                                        <x-slot:description>{{ $spell->description }}</x-slot>
+                                            <x-slot:level>{{ $spell->level }}</x-slot>
+                                                <x-slot:casting_time>{{ $spell->casting_time }}</x-slot>
+                                                    <x-slot:range>{{ $spell->range }}</x-slot>
+                                                        <x-slot:components>{{ $spell->components }}</x-slot>
+                                                            <x-slot:duration>{{ $spell->duration }}</x-slot>
+                                                                <x-slot:description>{{ $spell->description }}</x-slot>
                                     </x-spell-card>
                                 </div>
                             @endforeach
@@ -77,7 +91,7 @@
                     </section>
                     <hr>
                 @endif
-                
+
             </div>
 
             <div class="d-flex justify-content-center gap-2 mt-4">

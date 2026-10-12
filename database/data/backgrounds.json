@@ -1,0 +1,146 @@
+[
+    {
+        "id": 1,
+        "name": "Acolyte",
+        "feat_id": 45,
+        "ability_scores": "Intelligence, Wisdom, Charisma",
+        "equipment": "Calligrapher's Supplies, Book (prayers), Holy Symbol, Parchment (10 sheets), Robe, 8 GP.",
+        "description": "You devoted yourself to service in a temple, either nestled in a town or secluded in a sacred grove. There you performed rites in honor of a god or pantheon. You served under a priest and studied religion. Thanks to your priest's instruction and your own devotion, you also learned how to channel a modicum of divine power in service to your place of worship and the people who prayed there.",
+        "proficiencies": [7, 15, 21]
+    },
+    {
+        "id": 2,
+        "name": "Artisan",
+        "feat_id": 22,
+        "ability_scores": "Strength, Dexterity, Intelligence",
+        "equipment": "Carpenter's Tools, 2 Pouches, Traveler's Clothes, 32 GP.",
+        "description": "You began mopping floors and scrubbing counters in an artisan's workshop for a few coppers per day as soon as you were strong enough to carry a bucket. When you were old enough to apprentice, you learned to create basic crafts of your own, as well as how to sweet-talk the occasional demanding customer. Your trade has also given you a keen eye for detail.",
+        "proficiencies": [9, 14, 22]
+    },
+    {
+        "id": 3,
+        "name": "Charlatan",
+        "feat_id": 64,
+        "ability_scores": "Dexterity, Constitution, Charisma",
+        "equipment": "Forgery Kit, Costume, Fine Clothes, 15 GP.",
+        "description": "Once you were old enough to order an ale, you soon had a favorite stool in every tavern within ten miles of where you were born. As you traveled the circuit from public house to watering hole, you learned to prey on unfortunates who were in the market for a comforting lie or two—perhaps a sham potion or forged ancestry records.",
+        "proficiencies": [5, 16, 51]
+    },
+    {
+        "id": 4,
+        "name": "Criminal",
+        "feat_id": 3,
+        "ability_scores": "Dexterity, Constitution, Intelligence",
+        "equipment": "2 Daggers, Thieves' Tools, Crowbar, 2 Pouches, Traveler's Clothes, 16 GP.",
+        "description": "You eked out a living in dark alleyways, cutting purses or burgling shops. Perhaps you were part of a small gang of like-minded wrongdoers who looked out for each other. Or maybe you were a lone wolf, fending for yourself against the local thieves' guild and more fearsome lawbreakers.",
+        "proficiencies": [16, 17, 55]
+    },
+    {
+        "id": 5,
+        "name": "Entertainer",
+        "feat_id": 50,
+        "ability_scores": "Strength, Dexterity, Charisma",
+        "equipment": "Lute, 2 Costumes, Mirror, Perfume, Traveler's Clothes, 11 GP.",
+        "description": "You spent much of your youth following roving fairs and carnivals, performing odd jobs for musicians and acrobats in exchange for lessons. You may have learned how to walk a tightrope, how to play a lute in a distinct style, or how to recite poetry with impeccable diction. To this day, you thrive on applause and long for the stage.",
+        "proficiencies": [1, 13, 45]
+    },
+    {
+        "id": 6,
+        "name": "Farmer",
+        "feat_id": 73,
+        "ability_scores": "Strength, Constitution, Wisdom",
+        "equipment": "Sickle, Carpenter's Tools, Healer's Kit, Iron Pot, Shovel, Traveler's Clothes, 30 GP.",
+        "description": "You grew up close to the land. Years tending animals and cultivating the earth rewarded you with patience and good health. You have a keen appreciation for nature's bounty alongside a healthy respect for nature's wrath.",
+        "proficiencies": [2, 11, 22]
+    },
+    {
+        "id": 7,
+        "name": "Guard",
+        "feat_id": 3,
+        "ability_scores": "Strength, Intelligence, Wisdom",
+        "equipment": "Spear, Light Crossbow, 20 Bolts, Dice Set, Hooded Lantern, Manacles, Quiver, Traveler's Clothes, 12 GP.",
+        "description": "Your feet ache when you remember the countless hours you spent at your post in the tower. You were trained to keep one eye looking outside the wall, watching for marauders sweeping from the nearby forest, and your other eye looking inside the wall, searching for cutpurses and troublemakers.",
+        "proficiencies": [4, 12, 36]
+    },
+    {
+        "id": 8,
+        "name": "Guide",
+        "feat_id": 45,
+        "ability_scores": "Dexterity, Constitution, Wisdom",
+        "equipment": "Shortbow, 20 Arrows, Cartographer's Tools, Bedroll, Quiver, Tent, Traveler's Clothes, 3 GP.",
+        "description": "You came of age outdoors, far from settled lands. Your home was anywhere you chose to spread your bedroll. There are wonders in the wilderness—strange monsters, pristine forests and streams, overgrown ruins of great halls once trod by giants—and you learned to fend for yourself as you explored them. From time to time, you guided friendly nature priests who instructed you in the fundamentals of channeling the magic of the wild.",
+        "proficiencies": [17, 18, 23]
+    },
+    {
+        "id": 9,
+        "name": "Hermit",
+        "feat_id": 36,
+        "ability_scores": "Constitution, Wisdom, Charisma",
+        "equipment": "Quarterstaff, Herbalism Kit, Bedroll, Book (philosophy), Lamp, Oil (3 flasks), Traveler's Clothes, 16 GP.",
+        "description": "You spent your early years secluded in a hut or monastery located well beyond the outskirts of the nearest settlement. In those days, your only companions were the creatures of the forest and those who would occasionally visit to bring news of the outside world and supplies. The solitude allowed you to spend many hours pondering the mysteries of creation.",
+        "proficiencies": [10, 15, 52]
+    },
+    {
+        "id": 10,
+        "name": "Merchant",
+        "feat_id": 43,
+        "ability_scores": "Constitution, Intelligence, Charisma",
+        "equipment": "Navigator's Tools, 2 Pouches, Traveler's Clothes, 22 GP.",
+        "description": "You were apprenticed to a trader, caravan master, or shopkeeper, learning the fundamentals of commerce. You traveled broadly, and you earned a living by buying and selling the raw materials artisans need to practice their craft or finished works from such crafters. You might have transported goods from one place to another (by ship, wagon, or caravan) or bought them from traveling traders and sold them in your own shop.",
+        "proficiencies": [2, 14, 53]
+    },
+    {
+        "id": 11,
+        "name": "Noble",
+        "feat_id": 64,
+        "ability_scores": "Strength, Intelligence, Charisma",
+        "equipment": "Dice Set, Fine Clothes, Perfume, 29 GP.",
+        "description": "You were raised in a castle, surrounded by wealth, power, and privilege. Your family of minor aristocrats ensured that you received a first-class education, some of which you appreciated and some of which you resented. Your time in the castle, especially the many hours you spent observing your family at court, also taught you a great deal about leadership.",
+        "proficiencies": [6, 14, 36]
+    },
+    {
+        "id": 12,
+        "name": "Sage",
+        "feat_id": 45,
+        "ability_scores": "Constitution, Intelligence, Wisdom",
+        "equipment": "Quarterstaff, Calligrapher's Supplies, Book (history), Parchment (8 sheets), Robe, 8 GP.",
+        "description": "",
+        "proficiencies": [3, 6, 21]
+    },
+    {
+        "id": 13,
+        "name": "Sailor",
+        "feat_id": 69,
+        "ability_scores": "Strength, Dexterity, Wisdom",
+        "equipment": "Dagger, Navigator's Tools, Rope, Traveler's Clothes, 20 GP.",
+        "description": "You lived as a seafarer, wind at your back and decks swaying beneath your feet. You've perched on barstools in more ports of call than you can remember, faced mighty storms, and swapped stories with folk who live beneath the waves.",
+        "proficiencies": [1, 12, 53]
+    },
+    {
+        "id": 14,
+        "name": "Scribe",
+        "feat_id": 64,
+        "ability_scores": "Dexterity, Intelligence, Wisdom",
+        "equipment": "Calligrapher's Supplies, Fine Clothes, Lamp, Oil (3 flasks), Parchment (12 sheets), 23 GP.",
+        "description": "You spent formative years in a scriptorium, a monastery dedicated to the preservation of knowledge, or a government agency, where you learned to write with a clear hand and produce finely written texts. Perhaps you scribed government documents or copied tomes of literature. You might have some skill as a writer of poetry, narrative, or scholarly research. Above all, you have a careful attention to detail, helping you avoid introducing mistakes to the documents you copy and create.",
+        "proficiencies": [9, 12, 21]
+    },
+    {
+        "id": 15,
+        "name": "Soldier",
+        "feat_id": 58,
+        "ability_scores": "Strength, Dexterity, Constitution",
+        "equipment": "Spear, Shortbow, 20 Arrows, Dice Set, Healer's Kit, Quiver, Traveler's Clothes, 14 GP.",
+        "description": "You began training for war as soon as you reached adulthood and carry precious few memories of life before you took up arms. Battle is in your blood. Sometimes you catch yourself reflexively performing the basic fighting exercises you learned first. Eventually, you put that training to use on the battlefield, protecting the realm by waging war.",
+        "proficiencies": [4, 8, 36]
+    },
+    {
+        "id": 16,
+        "name": "Wayfarer",
+        "feat_id": 43,
+        "ability_scores": "Dexterity, Wisdom, Charisma",
+        "equipment": "2 Daggers, Thieves' Tools, Dice Set, Bedroll, 2 Pouches, Traveler's Clothes, 16 GP.",
+        "description": "You grew up on the streets surrounded by similarly ill-fated castoffs, a few of them friends and a few of them rivals. You slept where you could and did odd jobs for food. At times, when the hunger became unbearable, you resorted to theft. Still, you never lost your pride and never abandoned hope. Fate is not yet finished with you.",
+        "proficiencies": [7, 17, 55, 36]
+    }
+]

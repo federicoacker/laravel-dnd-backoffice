@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('profession_spell', function (Blueprint $table) {
             $table->id();
             $table->foreignId('profession_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('spell_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('spell_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

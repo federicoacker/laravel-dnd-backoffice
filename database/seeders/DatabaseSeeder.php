@@ -23,21 +23,14 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
-            SpellsTableSeeder::class,
             ProficienciesTableSeeder::class,
             FeatsTableSeeder::class,
-            BackgroundsTableSeeder::class,
             FeaturesTableSeeder::class,
+            BackgroundsTableSeeder::class,
             SpeciesTableSeeder::class,
             ProfessionsTableSeeder::class,
-            ProfessionSpellTableSeeder::class,
-            ProfessionProficiencyTableSeeder::class,
-            FeatureProfessionTableSeeder::class,
-            FeatureSpeciesTableSeeder::class,
-            BackgroundProficiencyTableSeeder::class,
-            CharactersTableSeeder::class,
-            CharacterFeatTableSeeder::class,
-            CharacterProficiencyTableSeeder::class
+            SpellsTableSeeder::class,
+            FeatureSpeciesTableSeeder::class
         ]);
     }
 }

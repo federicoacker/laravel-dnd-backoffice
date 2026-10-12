@@ -7,6 +7,10 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+ul{
+    list-style:none;
+}
+
 .app {
     display: flex;
     flex-direction: column;
@@ -97,7 +101,7 @@
 
 .jumbo-image-show {
     width: 100%;
-    height: 500px;
+    height: auto;
     object-fit: cover;
     object-position: top;
 }
@@ -135,6 +139,10 @@
 .character-image {
     height: 200px;
     aspect-ratio: 1;
+    object-fit:cover;
+    object-position:top;
+    border: 1px solid rgba(0,0,0,0.075);
+    border-radius:5px;
 }
 
 .ability-score {
@@ -185,3 +193,69 @@
     flex-direction:column;
     gap:0.5rem;
 }
+
+.class-card-img{
+    height:500px;
+    aspect-ratio:auto;
+    object-fit:cover;
+    object-position:top;
+}
+
+.feature-description{
+    tr:nth-child(even){
+        background-color: rgba(0,0,0,0.5);
+        color:white;
+    }
+    tr{
+        border-top: 1px solid grey;
+        border-bottom:1px solid grey;
+        td{
+            border-left:1px solid black;
+            border-right:1px solid black;
+            text-align: center;
+        }
+        
+        th{
+            text-align:center;
+            border-left:1px solid grey;
+            border-right:1px solid grey;
+            padding:1rem;
+        }
+    }
+}
+.spell-description{
+    tr:nth-child(even){
+        background-color: rgba(0,0,0,0.5);
+        color:white;
+    }
+    tr{
+        border-top: 1px solid grey;
+        border-bottom:1px solid grey;
+        td{
+            border-left:1px solid black;
+            border-right:1px solid black;
+            text-align: center;
+        }
+        
+        th{
+            text-align:center;
+            border-left:1px solid grey;
+            border-right:1px solid grey;
+            padding:1rem;
+        }
+    }
+}
+.feature-text{
+    border:1px solid grey; 
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.spell{
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+

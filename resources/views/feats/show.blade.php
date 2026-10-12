@@ -7,9 +7,9 @@
             <h1 class="text-center text-capitalize">{{ $feat->name }}</h1>
             <hr>
             <div class="container">
-                <div class="card-text">
-                    {{ $feat->description }}
-                </div>
+                <p class="card-text">
+                    {!! nl2br($feat->description)  !!}
+                </p>
             </div>
 
             <div class="d-flex justify-content-center gap-2 mt-4">
