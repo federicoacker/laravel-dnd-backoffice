@@ -150,7 +150,7 @@
                 </h2>
                 <ul>
                     @foreach ($species->features as $feature)
-                        <li class="feature-description">
+                        <li class="feature-description feature-text">
                             <a class="text-capitalize" href="{{ route('features.show', $feature) }}">{{ $feature->name}}</a>
                             <p class="card-text">{!! nl2br($feature->description) !!}</p>
                         </li>
@@ -161,7 +161,7 @@
                 </h2>
                 <ul>
                     @foreach ($profession->features as $feature)
-                        <li class="feature-description">
+                        <li class="feature-description feature-text">
                             <a class="text-capitalize" href="{{ route('features.show', $feature) }}">{{ $feature->name}}</a>
                             <p class="card-text">{!! nl2br($feature->description) !!}</p>
                         </li>
@@ -198,7 +198,7 @@
                 <h2 class="text-center">Feat da Background</h2>
                 <ul>
                     @foreach ($background->feat()->get() as $feat)
-                        <li>
+                        <li class="feature-text">
                             <a class="text-capitalize" href="{{ route('feats.show', $feat) }}">{{ $feat->name}}</a>
                             <p class="card-text">{{ $feat->description }}</p>
                         </li>
@@ -216,7 +216,7 @@
                             });
                         @endphp
                         @foreach ($selectable_feats as $feat)
-                            <li>
+                            <li class="feature-text">
                                 <input {{ $feat['id'] == $background->feat?->id ? "checked disabled" : ($character->feats->contains($feat['id']) ? "checked" : "")}} type="checkbox"
                                     id="feat_{{$feat['id']}}" name="feats[]" value="{{ $feat['id'] }}">
                                 <label class="form-label text-capitalize" for="feat_{{ $feat['id'] }}"><a

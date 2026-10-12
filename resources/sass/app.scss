@@ -7,6 +7,10 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+ul{
+    list-style:none;
+}
+
 .app {
     display: flex;
     flex-direction: column;
@@ -245,6 +249,7 @@
     border:1px solid grey; 
     border-radius: 5px;
     padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
 }
 
 .spell{
@@ -253,3 +258,4 @@
     padding: 0.5rem 1rem;
     margin-bottom: 1rem;
 }
+
