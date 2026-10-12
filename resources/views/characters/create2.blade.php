@@ -122,7 +122,7 @@
                     @foreach ($species->features as $feature)
                         <li>
                             <a class="text-capitalize" href="{{ route('features.show', $feature) }}">{{ $feature->name}}</a>
-                            <p class="card-text">{{ $feature->description }}</p>
+                            <p class="card-text">{!! nl2br($feature->description) !!}</p>
                         </li>
                     @endforeach
                 </ul>

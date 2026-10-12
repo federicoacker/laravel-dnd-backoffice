@@ -196,7 +196,7 @@
                         <h4 class="text-center">Feats:</h4>
                         @foreach($character->feats as $feat)
                             <h5 class="mb-0 text-capitalize"><a href="{{ route('feats.show', $feat) }}">{{ $feat->name }}</a></h5>
-                            <p class="mb-0">{{ $feat->description }}</p>
+                            <p class="mb-0">{!! nl2br($feat->description) !!}</p>
                         @endforeach
                     </section>
                 @endif
@@ -204,7 +204,7 @@
                 @if($character->backstory)
                     <section class="backstory">
                         <h5 class="card-subtitle text-center mb-2"> Storia del Personaggio:</h5>
-                        <p class="card-text"> {{ $character->backstory }}</p>
+                        <p class="card-text"> {!! nl2br($character->backstory) !!}</p>
                     </section>
                     <hr>
                 @endif
