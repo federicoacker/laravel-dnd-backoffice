@@ -16,7 +16,7 @@
             </div>
 
         </div>
-        @if ($selfProfession->image)
+        @if ($selfProfession->image && Storage::exists($selfProfession->image))
             <hr>
             <img src="{{ asset('storage/' . $selfProfession->image) }}" alt="Immagine {{ $selfProfession->name }}"
                 class="card-img-top class-card-img">

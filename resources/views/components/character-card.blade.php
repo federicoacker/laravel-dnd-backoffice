@@ -13,7 +13,7 @@
             </button>
         </div>
         <hr>
-        @if($selfCharacter->image)
+        @if($selfCharacter->image && Storage::exists($selfCharacter->image))
             <img src="{{ asset('storage/' . $selfCharacter->image) }}" alt="Immagine {{ $selfCharacter->name }}"
                 class="card-img-top">
         @endif

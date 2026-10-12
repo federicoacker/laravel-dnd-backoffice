@@ -7,7 +7,7 @@
             <h1 class="text-center text-capitalize">{{ $class->name }}</h1>
             <hr>
             <div class="container">
-                @if($class->image)
+                @if($class->image && Storage::exists($class->image))
                     <img class="jumbo-image-show" src="{{ asset('storage/' . $class->image) }}" alt="immagine {{$class->name}}">
                     <hr>
                 @endif

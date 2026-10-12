@@ -41,7 +41,7 @@
             <div class="container">
                 <section class="row row-cols-1 row-cols-xl-2 header-information">
                     <div class="col d-flex align-items-center justify-content-center">
-                        @if($character->image)
+                        @if($character->image && Storage::exists($character->image))
                             <img src="{{ asset('storage/' . $character->image) }}" alt="Immagine {{ $character->name }}"
                                 class="character-image mb-2">
                         @else

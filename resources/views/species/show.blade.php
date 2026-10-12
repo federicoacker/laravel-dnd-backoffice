@@ -7,7 +7,7 @@
         <div class="container">
 
             <hr>
-            @if($species->image)
+            @if($species->image && Storage::exists($species->image))
                 <img class="jumbo-image-show" src="{{ asset('storage/' . $species->image) }}" alt="immagine specie">
                 <hr>
             @endif
