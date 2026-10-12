@@ -36,8 +36,11 @@ class BackgroundController extends Controller
     {
         $validated = $request->validate([
             'ability_scores' => 'required|array|min:1',
+            'proficiencies' => 'required|array|min:1'
         ], [
             'ability_scores.required' => "Devi selezionare almeno un'abilità associata.",
+            'proficiencies.required' => "Devi selezionare almeno una proficiency"
+
         ]);
 
         $data = $request->all();
@@ -94,8 +97,10 @@ class BackgroundController extends Controller
     {
         $validated = $request->validate([
             'ability_scores' => 'required|array|min:1',
+            'proficiencies' => 'required|array|min:1'
         ], [
             'ability_scores.required' => "Devi selezionare almeno un'abilità associata.",
+            'proficiencies.required' => "Devi selezionare almeno una proficiency"
         ]);
 
         $data = $request->all();
@@ -119,9 +124,8 @@ class BackgroundController extends Controller
 
         $background->update();
 
-        if ($request->has('proficiencies')) {
-            $background->proficiencies()->sync($data['proficiencies']);
-        }
+        
+        $background->proficiencies()->sync($data['proficiencies']);
 
         return redirect()->route('backgrounds.show', $background);
     }

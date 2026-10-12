@@ -13,12 +13,19 @@ class BackgroundsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $newBackground = new Background();
-        $newBackground->name = fake()->word();
-        $newBackground->feat_id = 1;
-        $newBackground->ability_scores = "Strenght,Dexterity,Constitution";
-        $newBackground->equipment = fake()->paragraph();
-        $newBackground->description = fake()->paragraph();
-        $newBackground->save();
+        $file = file_get_contents(database_path('data/backgrounds.json'));
+        $backgrounds = json_decode($file, true);
+
+        foreach($backgrounds as $background){
+            $newBackground = Background::create([
+                'name' => $background['name'],
+                'feat_id' => $background['feat_id'],
+                'ability_scores' => $background['ability_scores'],
+                'equipment' => $background['equipment'],
+                'description' => $background['description']
+            ]);
+
+            $newBackground->proficiencies()->attach($background['proficiencies']);
+        }
     }
 }
