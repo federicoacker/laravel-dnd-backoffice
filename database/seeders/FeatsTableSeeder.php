@@ -13,9 +13,14 @@ class FeatsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $newFeat = new Feat();
-        $newFeat->name = fake()->word();
-        $newFeat->description = fake()->paragraph;
-        $newFeat->save();
+        $file = file_get_contents(database_path('data/feats.json'));
+        $feats = json_decode($file, true);
+
+        foreach($feats as $feat){
+            Feat::create([
+                'name' => $feat['name'],
+                'description' => $feat['description']
+            ]);
+        }
     }
 }

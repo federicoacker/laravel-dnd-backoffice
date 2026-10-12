@@ -16,34 +16,11 @@
             </div>
 
         </div>
-        @if ($selfProfession->image)
+        @if ($selfProfession->image && Storage::exists($selfProfession->image))
             <hr>
             <img src="{{ asset('storage/' . $selfProfession->image) }}" alt="Immagine {{ $selfProfession->name }}"
-                class="card-img-top">
+                class="card-img-top class-card-img">
         @endif
-        <hr>
-        <h5>Proficiencies:</h5>
-        <ul class="profession-card-list">
-            @php
-                $proficiencies = $selfProfession->proficiencies()->get()->toArray();
-                usort($proficiencies, function ($a, $b) {
-                    return strcmp($a['type'], $b['type']);
-                });
-            @endphp
-            @foreach($proficiencies as $proficiency)
-                <li><a href="{{ route('proficiencies.show', $proficiency['id']) }}"
-                        class="text-capitalize">{{ $proficiency['type'] }}: {{ $proficiency['name'] }}
-                        ({{ $proficiency['ability_score'] }})</a></li>
-            @endforeach
-        </ul>
-        <hr>
-        <h5>Features:</h5>
-        <ul class="profession-card-list">
-            @foreach($selfProfession->features as $feature)
-                <li><a href="{{ route('proficiencies.show', $feature) }}" class="text-capitalize">{{ $feature->name }}</a>
-                </li>
-            @endforeach
-        </ul>
         <hr>
         <a class="btn btn-primary" href="{{ route('classes.show', $selfProfession) }}">Visualizza</a>
     </div>

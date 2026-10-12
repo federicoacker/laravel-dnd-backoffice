@@ -44,12 +44,29 @@
                 @endforeach
             </select>
 
+            <label class="form-label" for="saving_throws">Tiri salvezza</label>
+            <input required class="form-control" type="text" id="saving_throws" name="saving_throws" value="{{ $class->saving_throws }}">
+
             <label class="form-label" for="armor_training">Competenze Armatura</label>
             <textarea class="form-control" name="armor_training" id="armor_training">{{ $class->armor_training }}</textarea>
 
-            <label class="form-label" for="number_of_proficiencies">Numero di competenze selezionabili</label>
-            <input required class="form-control" type="number" min="2" max="8" name="number_of_proficiencies"
-                id="number_of_proficiencies" value="{{ $class->number_of_proficiencies }}">
+            <label class="form-label" for="number_of_skill_proficiencies">Numero di competenze skill selezionabili</label>
+            <input required class="form-control" type="number" min="2" max="8" name="number_of_skill_proficiencies"
+                id="number_of_skill_proficiencies" value="{{ $class->number_of_skill_proficiencies }}">
+
+            @if($class->number_of_tool_proficiencies)
+            <label class="form-label" for="number_of_tool_proficiencies">Numero di competenze skill selezionabili</label>
+            <input required class="form-control" type="number" min="2" max="8" name="number_of_tool_proficiencies"
+                id="number_of_tool_proficiencies" value="{{ $class->number_of_tool_proficiencies }}">
+            @endif
+
+            @if($class->type_of_tool_proficiencies)
+            <label class="form-label" for="type_of_tool_proficiencies">Tipo di tool proficiencies selezionabili</label>
+            <select name="type_of_tool_proficiencies" id="type_of_tool_proficiencies">
+                <option {{ $class->type_of_tool_proficiencies == "Tool" ? "selected" : "" }} value="Tool">Tool</option>
+                <option {{ $class->type_of_tool_proficiencies == "Musical Instrument" ? "selected" : "" }} value="Musical Instrument">Musical Instrument</option>
+            </select>
+            @endif
 
             <div class="dropdown my-2">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
