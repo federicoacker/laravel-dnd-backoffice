@@ -17,39 +17,30 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:admin'])->name('dashboard');
 
+// Rotte accessibili solo da admin
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
-Route::resource('spells', SpellController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('spells', SpellController::class);
 
-Route::resource('features', FeatureController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('features', FeatureController::class);
 
-Route::resource('species', SpeciesController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('species', SpeciesController::class);
 
-Route::resource('proficiencies', ProficiencyController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('proficiencies', ProficiencyController::class);
 
-Route::resource('feats', FeatController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('feats', FeatController::class);
 
-Route::resource('backgrounds', BackgroundController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('backgrounds', BackgroundController::class);
 
-Route::resource('classes', ProfessionController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('classes', ProfessionController::class);
 
-Route::resource('characters', CharacterController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('characters', CharacterController::class);
 
-Route::match(['get', 'post'], '/characters/create/step2', [CharacterController::class, 'create2'])
-->middleware(['auth','verified'])
-->name('characters.create2');
+    Route::match(['get', 'post'], '/characters/create/step2', [CharacterController::class, 'create2'])->name('characters.create2');
 
-Route::match(['get', 'post'], '/characters/{character}/edit/step2', [CharacterController::class, 'edit2'])
-->middleware(['auth','verified'])
-->name('characters.edit2');
+    Route::match(['get', 'post'], '/characters/{character}/edit/step2', [CharacterController::class, 'edit2'])->name('characters.edit2');
+});
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -21,3 +21,5 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+SANCTUM_ROLES_GUIDE.md
+WEB_ROLE_AUTH_GUIDE.md

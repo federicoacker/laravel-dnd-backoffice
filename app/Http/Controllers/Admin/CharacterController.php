@@ -10,6 +10,7 @@ use App\Models\Profession;
 use App\Models\Proficiency;
 use App\Models\Species;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CharacterController extends Controller
@@ -130,14 +131,16 @@ class CharacterController extends Controller
         if ($request->has('profession_tool_proficiencies')) {
             $proficiencies = array_merge($proficiencies, $data['profession_tool_proficiencies']);
         }
-
         $newCharacter = new Character();
         $newCharacter->name = $data['name'];
         $newCharacter->level = $data['level'];
         $newCharacter->species_id = $data['species_id'];
         $newCharacter->profession_id = $data['profession_id'];
         $newCharacter->background_id = $data['background_id'];
-
+        if($request->has('is_public')){
+            $newCharacter->is_public = $data['is_public'];
+        }
+        $newCharacter->user_id = Auth::user()->id;
         $newCharacter->strength = $data['strength'] ?? 10;
         $newCharacter->dexterity = $data['dexterity'] ?? 10;
         $newCharacter->constitution = $data['constitution'] ?? 10;
@@ -279,13 +282,16 @@ class CharacterController extends Controller
                 "charisma.max" => "Charisma può essere al massimo 20"
             ]
         );
-
+       
         $character->name = $data['name'];
         $character->level = $data['level'];
         $character->species_id = $data['species_id'];
         $character->profession_id = $data['profession_id'];
         $character->background_id = $data['background_id'];
-
+        if($request->has('is_public')){
+            $character->is_public = $data['is_public'];
+        }
+        $character->user_id = Auth::user()->id;
         $character->strength = $data['strength'] ?? 10;
         $character->dexterity = $data['dexterity'] ?? 10;
         $character->constitution = $data['constitution'] ?? 10;

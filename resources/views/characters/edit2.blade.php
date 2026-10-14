@@ -10,6 +10,11 @@
             class="form-control mb-4 d-flex flex-column" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            <div class="d-flex gap-2">
+                <input class="form-check" type="checkbox" id="is_public" name="is_public" {{ $character->is_public ? 'checked' : ""}} value="1">
+                <label class="form-label" for="is_public">Public</label>
+            </div>
+
             <label class="form-label" for="name">Nome</label>
             <input required type="text" class="form-control" name="name" id="name" value="{{ $name }}">
 
