@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Traits\HttpResponses;
 use Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -44,8 +45,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(){
-        Auth::user()->currentAccessToken()->delete();
+    public function logout(Request $request){
+        $request->user()->currentAccessToken()->delete();
 
         return $this->success([
             'message' => 'You have successfully been logged out'

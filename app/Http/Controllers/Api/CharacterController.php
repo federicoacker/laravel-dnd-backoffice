@@ -31,9 +31,30 @@ class CharacterController extends Controller
         }
 
         $characters = $query->get();
+        $responseCharacters = $characters->map(function ($character) {
+            return [
+                "id" => $character->id,
+                "is_public" => $character->is_public,
+                "name" => $character->name,
+                "level" => $character->level,
+                "background" => $character->background,
+                "species" => $character->species,
+                "profession" => $character->profession,
+                "backstory" => $character->backstory,
+                "image" => $character->image ? asset('storage/' . $character->image) : null,
+                "strength" => $character->strength,
+                "dexterity" => $character->dexterity,
+                "constitution" => $character->constitution,
+                "intellect" => $character->intellect,
+                "wisdom" => $character->wisdom,
+                "charisma" => $character->charisma,
+                "inventory" => $character->inventory,
+                "proficiencies" => $character->proficiencies
+            ];
+        });
 
         if (count($characters) > 0) {
-            return $this->success($characters);
+            return $this->success($responseCharacters);
         } else {
             return $this->error([], "0 Characters Found", 404);
         }
