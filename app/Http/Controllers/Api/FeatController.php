@@ -10,9 +10,35 @@ use Illuminate\Http\Request;
 class FeatController extends Controller
 {
     use HttpResponses;
-    public function index(){
-        $feats = Feat::all();
+    public function index(Request $request)
+    {
 
-        return $this->success($feats);
+        $search = $request->query('search');
+        $query = Feat::query();
+        
+        if ($search) {
+            $query->where('name', 'LIKE', "%$search%");
+        }
+        $mapFeats = function ($feat) {
+            return [
+                'id' => $feat->id,
+                'name' => $feat->name,
+                'description' => $feat->description,
+            ];
+        };
+
+        if (!$request->boolean('paginate', false)) {
+            return $this->success([
+                'data' => $query->get()->map($mapFeats),
+            ]);
+        }
+
+        $features = $query->paginate(21);
+        $features->through($mapFeats);
+        return $this->success([
+            'data' => $features->items(),
+            'current_page' => $features->currentPage(),
+            'last_page' => $features->lastPage()
+        ]);
     }
 }

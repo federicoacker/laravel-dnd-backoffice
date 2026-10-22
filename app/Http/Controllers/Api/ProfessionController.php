@@ -10,10 +10,17 @@ use Illuminate\Http\Request;
 class ProfessionController extends Controller
 {
     use HttpResponses;
-    public function index() {
-        $professions = Profession::with('proficiencies', 'features', 'spells')->get();
-        
-        $mappedProfessions = $professions->map(function ($profession) {
+    public function index(Request $request)
+    {
+
+        $search = $request->query('search');
+        $query = Profession::with('proficiencies', 'features', 'spells');
+
+        if ($search) {
+            $query->where('name', 'LIKE', "%$search%");
+        }
+
+        $mapProfessions = function ($profession) {
             return [
                 'id' => $profession->id,
                 'name' => $profession->name,
@@ -32,7 +39,22 @@ class ProfessionController extends Controller
                 'features' => $profession->features,
                 'spells' => $profession->spells
             ];
-        });
+        };
+
+        if (!$request->boolean('paginate', false)) {
+            return $this->success([
+                'data' => $query->get()->map($mapProfessions),
+            ]);
+        }
+
+        $professions = $query->paginate(6);
+        $professions->through($mapProfessions);
+
+        return $this->success([
+            'data' => $professions->items(),
+            'current_page' => $professions->currentPage(),
+            'last_page' => $professions->lastPage(),
+        ]);
 
         return $this->success($mappedProfessions);
     }

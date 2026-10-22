@@ -10,18 +10,37 @@ use Illuminate\Http\Request;
 class BackgroundController extends Controller
 {   
     use HttpResponses;
-    public function index(){
-        $backgrounds = Background::with('feat')->get();
+    public function index(Request $request){
+        $search = $request->query('search');
+        $query = Background::with('feat');
+        
+        if ($search) {
+            $query->where('name', 'LIKE', "%$search%");
+        }
 
-        $mappedBackgrounds = $backgrounds->map(function ($background) {
+        $mapBackgrounds = function ($background) {
             return [
                 'id' => $background->id,
                 'name' => $background->name,
                 'feat' => $background->feat,
-                'equipment' => $background->equipment
+                'description' => $background->description,
+                'equipment' => $background->equipment,
+                'ability_scores' => $background->ability_scores
             ];
-        });
+        };
 
-        return $this->success($mappedBackgrounds);
+        if (!$request->boolean('paginate', false)) {
+            return $this->success([
+                'data' => $query->get()->map($mapBackgrounds),
+            ]);
+        }
+
+        $backgrounds = $query->paginate(6);
+        $backgrounds->through($mapBackgrounds);
+        return $this->success([
+            'data' => $backgrounds->items(),
+            'current_page' => $backgrounds->currentPage(),
+            'last_page' => $backgrounds->lastPage()
+        ]);
     }
 }

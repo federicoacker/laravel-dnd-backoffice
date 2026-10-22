@@ -3,9 +3,11 @@
 use App\Http\Controllers\Api\BackgroundController;
 use App\Http\Controllers\Api\CharacterController;
 use App\Http\Controllers\Api\FeatController;
+use App\Http\Controllers\Api\FeatureController;
 use App\Http\Controllers\Api\ProfessionController;
 use App\Http\Controllers\Api\ProficiencyController;
 use App\Http\Controllers\Api\SpeciesController;
+use App\Http\Controllers\Api\SpellController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TasksController;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -28,6 +30,8 @@ Route::get('/characters', [CharacterController::class, 'index']);
 Route::get('/characters/{character}', [CharacterController::class, 'show']);
 Route::match(['put', 'patch'], '/characters/{character}', [CharacterController::class, 'update'])
     ->middleware(['auth:sanctum', 'throttle:60,1']);
+Route::delete('/characters/{character}', [CharacterController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'throttle:60,1']);
 Route::post('/characters', [CharacterController::class, 'store'])
     ->middleware(['auth:sanctum', 'throttle:60,1']);
 
@@ -37,6 +41,10 @@ Route::get('/species', [SpeciesController::class, 'index']);
 
 Route::get('/proficiencies', [ProficiencyController::class, 'index']);
 Route::get('/feats', [FeatController::class, 'index']);
+
+Route::get('/features', [FeatureController::class, 'index']);
+
+Route::get('/spells', [SpellController::class, 'index']);
 
 //protected routes
 Route::group(['middleware' => ['auth:sanctum']], function() {

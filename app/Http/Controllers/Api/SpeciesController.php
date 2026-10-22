@@ -12,18 +12,24 @@ class SpeciesController extends Controller
     use HttpResponses;
     public function index(Request $request)
     {
+        $search = $request->query('search');
         $query = Species::with('features');
 
+        if ($search) {
+            $query->where('name', 'LIKE', "%$search%");
+        }
+        
         $mapSpecies = function ($species) {
             return [
                 'id' => $species->id,
                 'name' => $species->name,
                 'features' => $species->features,
                 'description' => $species->description,
+                'image' => $species->image ? asset('storage/' . $species->image) : null,
             ];
         };
 
-        if (!$request->boolean('paginate', true)) {
+        if (!$request->boolean('paginate', false)) {
             return $this->success([
                 'data' => $query->get()->map($mapSpecies),
             ]);

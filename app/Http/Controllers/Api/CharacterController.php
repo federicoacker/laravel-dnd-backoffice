@@ -119,7 +119,7 @@ class CharacterController extends Controller
             'user'
         )
 
-            ->find($character_id);
+            ->findOrFail($character_id);
 
         $responseCharacter = [
             "id" => $character->id,
@@ -267,6 +267,27 @@ class CharacterController extends Controller
             $character->load('species', 'profession', 'background', 'proficiencies', 'feats'),
             'Character updated successfully.'
         );
+    }
+
+    public function destroy(Request $request, Character $character)
+    {
+        $user = $request->user('sanctum');
+
+        if (
+            $user->role !== 'admin' &&
+            ($user->role !== 'user' ||
+                (string) $character->user_id !== (string) $user->getAuthIdentifier())
+        ) {
+            return $this->error([], "You don't have access to this character", 403);
+        }
+
+        if ($character->image) {
+            Storage::delete($character->image);
+        }
+
+        $character->delete();
+
+        return $this->success([], 'Character deleted successfully.');
     }
 
     public function store(Request $request)
