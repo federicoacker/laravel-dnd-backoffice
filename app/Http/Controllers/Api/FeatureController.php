@@ -27,11 +27,11 @@ class FeatureController extends Controller
 
         if (!$request->boolean('paginate', false)) {
             return $this->success([
-                'data' => $query->get()->map($mapFeatures),
+                'data' => $query->orderBy('name')->get()->map($mapFeatures),
             ]);
         }
 
-        $features = $query->paginate(21);
+        $features = $query->orderBy('name')->paginate(21);
         $features->through($mapFeatures);
         return $this->success([
             'data' => $features->items(),
