@@ -56,6 +56,13 @@ class ProfessionController extends Controller
             'last_page' => $professions->lastPage(),
         ]);
 
-        return $this->success($mappedProfessions);
+    }
+
+    public function show(Request $request){
+        $profession_id = $request->profession;
+        $profession = Profession::with('features','proficiencies','spells')->findOrFail($profession_id);
+
+
+        return $this->success($profession);
     }
 }

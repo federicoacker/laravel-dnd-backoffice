@@ -44,4 +44,20 @@ class SpeciesController extends Controller
             'last_page' => $species->lastPage(),
         ]);
     }
+
+    public function show(Request $request){
+        $species_id = $request->species;
+        $species = Species::with('features')->findOrFail($species_id);
+
+        $mappedSpecies = [
+                'id' => $species->id,
+                'name' => $species->name,
+                'features' => $species->features,
+                'description' => $species->description,
+                'image' => $species->image ? asset('storage/' . $species->image) : null,
+            ];
+        
+
+        return $this->success($mappedSpecies);
+    }
 }

@@ -43,4 +43,12 @@ class BackgroundController extends Controller
             'last_page' => $backgrounds->lastPage()
         ]);
     }
+
+    public function show(Request $request){
+        $background_id = $request->background;
+        $background = Background::with('feat','proficiencies')->findOrFail($background_id);
+
+
+        return $this->success($background);
+    }
 }

@@ -20,12 +20,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-//public routes
-Route::post('/login', [AuthController::class, 'login'])
-->middleware('throttle:10,1');
-Route::post('/register', [AuthController::class, 'register'])
-->middleware('throttle:10,1');
 
+
+//Rotte che fanno controlli sull'autenticazione al loro interno
 Route::get('/characters', [CharacterController::class, 'index']);
 Route::get('/characters/{character}', [CharacterController::class, 'show']);
 Route::match(['put', 'patch'], '/characters/{character}', [CharacterController::class, 'update'])
@@ -35,16 +32,31 @@ Route::delete('/characters/{character}', [CharacterController::class, 'destroy']
 Route::post('/characters', [CharacterController::class, 'store'])
     ->middleware(['auth:sanctum', 'throttle:60,1']);
 
+//public routes
+Route::post('/login', [AuthController::class, 'login'])
+->middleware('throttle:10,1');
+Route::post('/register', [AuthController::class, 'register'])
+->middleware('throttle:10,1');
+
 Route::get('/classes', [ProfessionController::class, 'index']);
+Route::get('/classes/{profession}', [ProfessionController::class, 'show']);
+
 Route::get('/backgrounds', [BackgroundController::class, 'index']);
+Route::get('/backgrounds/{background}', [BackgroundController::class, 'show']);
+
 Route::get('/species', [SpeciesController::class, 'index']);
+Route::get('/species/{species}', [SpeciesController::class, 'show']);
 
 Route::get('/proficiencies', [ProficiencyController::class, 'index']);
+
 Route::get('/feats', [FeatController::class, 'index']);
+Route::get('/feats/{feat}', [FeatController::class, 'show']);
 
 Route::get('/features', [FeatureController::class, 'index']);
+Route::get('/features/{feature}', [FeatureController::class, 'show']);
 
 Route::get('/spells', [SpellController::class, 'index']);
+Route::get('/spells/{spell}', [SpellController::class, 'show']);
 
 //protected routes
 Route::group(['middleware' => ['auth:sanctum']], function() {

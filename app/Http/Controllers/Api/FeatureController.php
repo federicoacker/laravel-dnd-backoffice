@@ -39,4 +39,12 @@ class FeatureController extends Controller
             'last_page' => $features->lastPage()
         ]);
     }
+
+    public function show(Request $request){
+        $feature_id = $request->feature;
+        $feature = Feature::findOrFail($feature_id);
+
+
+        return $this->success($feature);
+    }
 }

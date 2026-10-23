@@ -54,4 +54,11 @@ class SpellController extends Controller
             'last_page' => $features->lastPage()
         ]);
     }
+
+    public function show(Request $request){
+        $spell_id = $request->spell;
+        $spell = Spell::with('professions')->findOrFail($spell_id);
+
+        return $this->success($spell);
+    }
 }
