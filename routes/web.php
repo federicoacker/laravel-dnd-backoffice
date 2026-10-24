@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Admin\BackgroundController;
 use App\Http\Controllers\Admin\CharacterController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeatController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\ProficiencyController;
 use App\Http\Controllers\Admin\ProfessionController;
 use App\Http\Controllers\Admin\SpeciesController;
 use App\Http\Controllers\Admin\SpellController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,41 +17,44 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard');
 
 
-Route::resource('spells', SpellController::class)
-->middleware(['auth', 'verified']);
 
-Route::resource('features', FeatureController::class)
-->middleware(['auth', 'verified']);
+// Rotte accessibili solo da admin
 
-Route::resource('species', SpeciesController::class)
-->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::match(['put', 'patch'], '/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+});
 
-Route::resource('proficiencies', ProficiencyController::class)
-->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
-Route::resource('feats', FeatController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('spells', SpellController::class);
 
-Route::resource('backgrounds', BackgroundController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('features', FeatureController::class);
 
-Route::resource('classes', ProfessionController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('species', SpeciesController::class);
 
-Route::resource('characters', CharacterController::class)
-->middleware(['auth', 'verified']);
+    Route::resource('proficiencies', ProficiencyController::class);
 
-Route::match(['get', 'post'], '/characters/create/step2', [CharacterController::class, 'create2'])
-->middleware(['auth','verified'])
-->name('characters.create2');
+    Route::resource('feats', FeatController::class);
 
-Route::match(['get', 'post'], '/characters/{character}/edit/step2', [CharacterController::class, 'edit2'])
-->middleware(['auth','verified'])
-->name('characters.edit2');
+    Route::resource('backgrounds', BackgroundController::class);
 
-require __DIR__.'/auth.php';
+    Route::resource('classes', ProfessionController::class);
+
+    Route::resource('characters', CharacterController::class);
+
+    Route::match(['get', 'post'], '/characters/create/step2', [CharacterController::class, 'create2'])->name('characters.create2');
+
+    Route::match(['get', 'post'], '/characters/{character}/edit/step2', [CharacterController::class, 'edit2'])->name('characters.edit2');
+});
+
+require __DIR__ . '/auth.php';

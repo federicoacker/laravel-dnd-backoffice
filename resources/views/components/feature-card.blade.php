@@ -1,18 +1,17 @@
-<div class="card">
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
+<div class="card features-card">
+    <div class="card-body d-flex flex-column">
+        <div class="flex-grow-1">
+
                 <h2 class="card-title text-capitalize mb-0">
                     {{ $name }}
-                </h2>
-            </div>
-            <div class="d-flex justify-content-between gap-2">
-                <a class="btn btn-warning" href="{{ route("features.edit", $selfFeature) }}">Modifica</a>
-                <button type="button" class="btn btn-danger px-1 py-0" data-bs-toggle="modal"
-                    data-bs-target="#deleteModal-{{ $selfFeature->id }}">
-                    Elimina
-                </button>
-            </div>
+
+        </div>
+        <div class="d-flex justify-content-start gap-2">
+            <a class="btn btn-warning" href="{{ route("features.edit", $selfFeature) }}">Modifica</a>
+            <button type="button" class="btn btn-danger px-1 py-0" data-bs-toggle="modal"
+                data-bs-target="#deleteModal-{{ $selfFeature->id }}">
+                Elimina
+            </button>
         </div>
         <hr>
         <h5 class="card-subtitle">Tipo Feature: {{ $type }}</h5>

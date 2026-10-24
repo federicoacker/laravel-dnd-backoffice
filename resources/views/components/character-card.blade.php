@@ -1,6 +1,6 @@
-<div class="card">
+<div class="card character-card">
     <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+        <div class="d-flex justify-content-between align-items-center gap-2 mb-2 character-title">
             <h2 class="card-title mb-0">{{ $selfCharacter->name }}</h2>
             <h2 class="card-subtitle mb-0 text-center">Livello: {{ $selfCharacter->level }}</h2>
 
@@ -15,7 +15,7 @@
         <hr>
         @if($selfCharacter->image && Storage::exists($selfCharacter->image))
             <img src="{{ asset('storage/' . $selfCharacter->image) }}" alt="Immagine {{ $selfCharacter->name }}"
-                class="card-img-top">
+                class="card-img-top character-img mb-2">
         @endif
         <section class="character-info d-flex flex-column gap-2">
             <h5 class="card-subtitle">Classe:

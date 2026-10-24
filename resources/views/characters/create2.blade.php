@@ -9,6 +9,10 @@
         <form method="POST" action="{{ route('characters.store') }}" class="form-control mb-4 d-flex flex-column"
             enctype="multipart/form-data">
             @csrf
+            <div class="d-flex gap-2">
+                <input class="form-check" type="checkbox" id="is_public" name="is_public" value="1">
+                <label class="form-label mb-0" for="is_public">Public</label>
+            </div>
 
             <label class="form-label" for="name">Nome</label>
             <input required type="text" class="form-control" name="name" id="name" value="{{ $name }}">
@@ -154,7 +158,7 @@
                     @foreach ($profession->features as $feature)
                         <li class="feature-description feature-text">
                             <a class="text-capitalize" href="{{ route('features.show', $feature) }}">{{ $feature->name}}</a>
-                            <p class="card-text">{{ $feature->description }}</p>
+                            <p class="card-text">{!! nl2br($feature->description) !!}</p>
                         </li>
                     @endforeach
                 </ul>
