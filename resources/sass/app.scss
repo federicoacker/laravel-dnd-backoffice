@@ -200,7 +200,15 @@ ul{
     object-fit:cover;
     object-position:top;
 }
-
+.character-img{
+    height:500px;
+    width:100%;
+    object-fit:cover;
+    object-position:top;
+}
+.character-title{
+    min-height:120px;
+}
 .feature-description{
     tr:nth-child(even){
         background-color: rgba(0,0,0,0.5);
@@ -259,3 +267,28 @@ ul{
     margin-bottom: 1rem;
 }
 
+.species-card{
+    min-height:700px;
+    
+}
+.spell-card{
+    min-height:600px;
+    .spell-title{
+        min-height:100px;
+    }
+}
+.proficiencies-card{
+    min-height:350px;
+}
+.features-card{
+    min-height:300px;
+}
+.flex-grow-2{
+    flex-grow:2;
+}
+.character-card{
+    min-height:850px;
+}
+.feats-card{
+    min-height:220px;
+}

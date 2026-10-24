@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
             <div class="logo d-flex justify-content-center align-items-center">
@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                <li class="nav-item d-md-flex g-2">
+                <li class="nav-item d-lg-flex g-2">
                     <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
                     <a class="nav-link" href="{{url('/characters') }}">{{ __('Characters') }}</a>
                     <a class="nav-link" href="{{url('/backgrounds') }}">{{ __('Backgrounds') }}</a>

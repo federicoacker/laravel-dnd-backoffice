@@ -1,18 +1,16 @@
-<div class="card">
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <h2 class="card-title text-capitalize mb-0">
-                    {{ $name }}
-                </h2>
-            </div>
-            <div class="d-flex justify-content-between gap-2">
-                <a class="btn btn-warning" href="{{ route("feats.edit", $selfFeat) }}">Modifica</a>
-                <button type="button" class="btn btn-danger px-1 py-0" data-bs-toggle="modal"
-                    data-bs-target="#deleteModal-{{ $selfFeat->id }}">
-                    Elimina
-                </button>
-            </div>
+<div class="card feats-card ">
+    <div class="card-body d-flex flex-column">
+        <div class="flex-grow-1">
+            <h2 class="card-title text-capitalize mb-0">
+                {{ $name }}
+            </h2>
+        </div>
+        <div class="d-flex justify-content-start gap-2">
+            <a class="btn btn-warning" href="{{ route("feats.edit", $selfFeat) }}">Modifica</a>
+            <button type="button" class="btn btn-danger px-1 py-0" data-bs-toggle="modal"
+                data-bs-target="#deleteModal-{{ $selfFeat->id }}">
+                Elimina
+            </button>
         </div>
         <hr>
         <a class="btn btn-primary" href="{{ route('feats.show', $selfFeat) }}">Visualizza</a>

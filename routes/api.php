@@ -4,10 +4,12 @@ use App\Http\Controllers\Api\BackgroundController;
 use App\Http\Controllers\Api\CharacterController;
 use App\Http\Controllers\Api\FeatController;
 use App\Http\Controllers\Api\FeatureController;
+use App\Http\Controllers\Api\PasswordController;
 use App\Http\Controllers\Api\ProfessionController;
 use App\Http\Controllers\Api\ProficiencyController;
 use App\Http\Controllers\Api\SpeciesController;
 use App\Http\Controllers\Api\SpellController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TasksController;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -31,6 +33,8 @@ Route::delete('/characters/{character}', [CharacterController::class, 'destroy']
     ->middleware(['auth:sanctum', 'throttle:60,1']);
 Route::post('/characters', [CharacterController::class, 'store'])
     ->middleware(['auth:sanctum', 'throttle:60,1']);
+
+Route::get('/users/{user}', [UserController::class, 'show']);
 
 //public routes
 Route::post('/login', [AuthController::class, 'login'])
@@ -59,7 +63,9 @@ Route::get('/spells', [SpellController::class, 'index']);
 Route::get('/spells/{spell}', [SpellController::class, 'show']);
 
 //protected routes
-Route::group(['middleware' => ['auth:sanctum']], function() {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    Route::put('/user/password', [PasswordController::class, 'update'])
+        ->middleware('throttle:5,1');
 });
