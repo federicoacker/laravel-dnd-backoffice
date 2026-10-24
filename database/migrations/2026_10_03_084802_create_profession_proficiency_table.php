@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('profession_proficiency', function (Blueprint $table) {
             $table->id();
             $table->foreignId('profession_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('proficiency_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('proficiency_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

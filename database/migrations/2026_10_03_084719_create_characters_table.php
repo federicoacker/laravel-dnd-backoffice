@@ -12,6 +12,8 @@ return new class extends Migration {
     {
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
+            $table->boolean('is_public')->default(0);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name', 255);
             $table->tinyInteger('level')->default(1);
             $table->foreignId('background_id')->nullable()->constrained()->onDelete('set null');
